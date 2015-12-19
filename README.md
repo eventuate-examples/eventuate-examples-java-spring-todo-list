@@ -1,7 +1,3 @@
----
-title: Todo List example application
----
-
 # Todo List example application
 
 The Todo List application is the hello world application for the Eventuate&trade; Platform.
