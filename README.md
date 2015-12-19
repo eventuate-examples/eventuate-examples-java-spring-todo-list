@@ -1,7 +1,7 @@
 # Todo List example application
 
-The Todo List application is the hello world application for the Eventuate&trade; Platform.
-It is illustrates how you can use the platform to write an application that uses Event Sourcing and Command Query Responsibility Segregation (CQRS).
+The Todo List application is the hello world application for the [Eventuate&trade; Platform](http://eventuate.io).
+It illustrates how you can use the platform to write an application that uses Event Sourcing and Command Query Responsibility Segregation (CQRS).
 The Todo List application lets users maintain a todo list.
 
 The Todo List application is a Java and Spring Boot application built using Eventuate&trade;'s Event Sourcing based programming model.
