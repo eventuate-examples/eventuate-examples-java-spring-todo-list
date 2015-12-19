@@ -1,0 +1,10 @@
+include 'test-utils'
+
+include 'common'
+include 'command-side'
+include 'query-side'
+
+include 'rest-api-integration-tests'
+include 'standalone-service'
+include 'e2etest'
+
