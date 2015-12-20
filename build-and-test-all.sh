@@ -2,10 +2,11 @@
 
 set -e
 docker-compose stop
+docker-compose rm -v --force
 
 docker-compose up -d mysql
 
-./gradlew clean build
+./gradlew clean build $*
 
 docker-compose up -d standaloneservice
 
@@ -23,6 +24,6 @@ while [[ true ]]; do
         sleep 1
 done
 
-./gradlew :e2etest:cleanTest :e2etest:test
+./gradlew :e2etest:cleanTest :e2etest:test $*
 
 
