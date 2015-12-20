@@ -9,9 +9,11 @@ Todos are implemented by an Event Sourcing-based `TodoAggregate`.
 The aggregate's events are persisted in the Eventuate event store.
 The application also maintains a materialized view of the data in MySQL.
 
+Don't forget to take a look at the other [Eventuate example applications](http://eventuate.io/exampleapps.html).
+
 # Architecture
 
-The following diagram shows the application architecture:
+The following diagram shows the Todo List application architecture:
 
 <img class="img-responsive" src="http://eventuate.io/demos/eventuate-todo-architecture.png">
 
