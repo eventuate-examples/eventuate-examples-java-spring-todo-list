@@ -9,11 +9,8 @@ standaloneservice:
   links:
     - mysql
   environment:
-      EVENT_STORE_USER_ID:
-      EVENT_STORE_PASSWORD:
-      EVENT_STORE_URL:
-      EVENT_STORE_STOMP_SERVER_HOST:
-      EVENT_STORE_STOMP_SERVER_PORT:
+      EVENTUATE_API_KEY_ID:
+      EVENTUATE_API_KEY_SECRET:
 
 mysql:
   image: mysql:5.7

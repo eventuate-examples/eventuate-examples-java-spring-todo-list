@@ -12,6 +12,6 @@
     <root level="error">
         <appender-ref ref="STDOUT"/>
     </root>
-    <logger name="org.springframework" level='debug'>
+    <logger name="org.springframework" level='info'>
     </logger>
 </configuration>

@@ -18,7 +18,6 @@ subprojects {
 
     repositories {
         mavenCentral()
-        maven { url eventuateMavenRepoUrl }
-
+        eventuateMavenRepoUrl.split(',').each { repoUrl -> maven { url repoUrl } }
     }
 }
