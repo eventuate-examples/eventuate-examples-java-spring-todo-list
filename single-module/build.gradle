@@ -37,3 +37,15 @@ dependencies {
     testCompile "org.springframework.boot:spring-boot-starter-test:$springBootVersion"
     testCompile "net.chrisrichardson.eventstore.client:eventstore-jdbc_2.10:$eventStoreClientVersion"
 }
+
+test {
+    filter {
+        includeTestsMatching "net.chrisrichardson.eventstore.examples.todolist.integration.*"
+    }
+}
+
+task e2eTest(type: Test) {
+    filter {
+        includeTestsMatching "net.chrisrichardson.eventstore.examples.todolist.e2etests.*"
+    }
+}

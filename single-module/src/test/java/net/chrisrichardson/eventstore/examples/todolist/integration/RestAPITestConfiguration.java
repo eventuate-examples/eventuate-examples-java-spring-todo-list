@@ -1,4 +1,4 @@
-package net.chrisrichardson.eventstore.examples.todolist;
+package net.chrisrichardson.eventstore.examples.todolist.integration;
 
 import net.chrisrichardson.eventstore.examples.todolist.commandside.config.TodoCommandSideConfiguration;
 import net.chrisrichardson.eventstore.examples.todolist.queryside.TodoQueryConfiguration;

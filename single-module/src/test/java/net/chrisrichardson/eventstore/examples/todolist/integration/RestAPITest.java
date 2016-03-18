@@ -1,5 +1,6 @@
-package net.chrisrichardson.eventstore.examples.todolist;
+package net.chrisrichardson.eventstore.examples.todolist.integration;
 
+import net.chrisrichardson.eventstore.examples.todolist.AbstractTodoRestAPITest;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.test.context.web.WebAppConfiguration;
