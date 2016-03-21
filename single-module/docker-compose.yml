@@ -1,0 +1,23 @@
+standaloneservice:
+  image: java:8
+  working_dir: /app
+  volumes:
+    - ./build/libs:/app
+  command: java -jar /app/single-module.jar --spring.datasource.url=jdbc:mysql://mysql/es-test
+  ports:
+    - "8080:8080"
+  links:
+    - mysql
+  environment:
+      EVENTUATE_API_KEY_ID:
+      EVENTUATE_API_KEY_SECRET:
+
+mysql:
+  image: mysql:5.7
+  environment:
+    MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+    MYSQL_DATABASE: es-test
+  expose:
+    - "3306"
+  ports:
+    - "3307:3306"

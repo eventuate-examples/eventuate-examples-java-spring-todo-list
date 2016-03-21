@@ -1,0 +1,51 @@
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:$springBootVersion")
+    }
+}
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '2.0'
+}
+
+apply plugin: 'java'
+apply plugin: 'spring-boot'
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+    eventuateMavenRepoUrl.split(',').each { repoUrl -> maven { url repoUrl } }
+}
+
+dependencies {
+    compile "net.chrisrichardson.eventstore.client:eventstore-java-client_2.10:$eventStoreClientVersion"
+    compile "net.chrisrichardson.eventstore.client:eventstore-http-stomp-client_2.10:$eventStoreClientVersion"
+
+    compile 'mysql:mysql-connector-java:5.1.36'
+
+    compile "org.springframework.boot:spring-boot-starter-data-jpa:$springBootVersion"
+    compile "org.springframework.boot:spring-boot-starter-web:$springBootVersion"
+    compile "org.springframework.boot:spring-boot-starter-actuator:$springBootVersion"
+    compile "org.springframework.hateoas:spring-hateoas:$springHateoasVersion"
+
+    testCompile "junit:junit:4.11"
+    testCompile "org.springframework.boot:spring-boot-starter-test:$springBootVersion"
+    testCompile "net.chrisrichardson.eventstore.client:eventstore-jdbc_2.10:$eventStoreClientVersion"
+}
+
+test {
+    filter {
+        includeTestsMatching "net.chrisrichardson.eventstore.examples.todolist.integration.*"
+    }
+}
+
+task e2eTest(type: Test) {
+    filter {
+        includeTestsMatching "net.chrisrichardson.eventstore.examples.todolist.e2etests.*"
+    }
+}
