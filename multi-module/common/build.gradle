@@ -3,6 +3,7 @@ apply plugin: 'java'
 dependencies {
     compile "net.chrisrichardson.eventstore.client:eventstore-java-client_2.10:$eventStoreClientVersion"
     compile "org.springframework.boot:spring-boot-starter-web:$springBootVersion"
+    compile("org.springframework.boot:spring-boot-starter-data-jpa:$springBootVersion")
 
     testCompile 'junit:junit:4.11'
 }

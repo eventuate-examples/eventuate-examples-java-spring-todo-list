@@ -1,39 +1,32 @@
-package net.chrisrichardson.eventstore.examples.todolist.queryside;
+package net.chrisrichardson.eventstore.examples.todolist;
 
 import net.chrisrichardson.eventstore.EntityIdentifier;
-import net.chrisrichardson.eventstore.examples.todolist.TodoHateoasController;
 import net.chrisrichardson.eventstore.examples.todolist.common.controller.BaseController;
 import net.chrisrichardson.eventstore.examples.todolist.common.model.ResourceWithUrl;
 import net.chrisrichardson.eventstore.examples.todolist.model.Todo;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import rx.Observable;
 
-import java.util.Collection;
-import java.util.List;
-import java.util.stream.Collectors;
-
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
-import static org.springframework.http.HttpStatus.OK;
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 
-
+/**
+ * Created by popikyardo on 23.03.16.
+ */
 @RestController
 @RequestMapping(value = "/todos")
-public class TodoQueryController extends BaseController {
+public class TodoHateoasController extends BaseController {
 
     @Autowired
-    private TodoQueryServiceImpl queryService;
+    private TodoQueryService queryService;
 
-    @RequestMapping(method = GET)
-    public HttpEntity<Collection<ResourceWithUrl>> listAll() {
-        List<ResourceWithUrl> resourceWithUrls = queryService.getAll().stream().map(this::toResource).collect(Collectors.toList());
-        return new ResponseEntity<>(resourceWithUrls, OK);
+    @RequestMapping(value = "/{todo-id}", method = GET)
+    public Observable<ResourceWithUrl> getTodo(@PathVariable("todo-id") String id) {
+        return queryService.findById(new EntityIdentifier(id)).map(this::toResource);
     }
 
     public ResourceWithUrl toResource(Todo todo) {

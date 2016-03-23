@@ -1,7 +1,5 @@
-package net.chrisrichardson.eventstore.examples.todolist.queryside;
+package net.chrisrichardson.eventstore.examples.todolist.model;
 
-
-import net.chrisrichardson.eventstore.examples.todolist.model.TodoInfo;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

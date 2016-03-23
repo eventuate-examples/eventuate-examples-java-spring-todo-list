@@ -1,12 +1,12 @@
 package net.chrisrichardson.eventstore.examples.todolist.commandside.web;
 
+import net.chrisrichardson.eventstore.examples.todolist.TodoHateoasController;
+import net.chrisrichardson.eventstore.examples.todolist.commandside.TodoQueryServiceImpl;
 import net.chrisrichardson.eventstore.examples.todolist.commandside.domain.TodoService;
 import net.chrisrichardson.eventstore.examples.todolist.common.controller.BaseController;
 import net.chrisrichardson.eventstore.examples.todolist.common.model.ResourceWithUrl;
+import net.chrisrichardson.eventstore.examples.todolist.model.Todo;
 import net.chrisrichardson.eventstore.examples.todolist.model.TodoInfo;
-import net.chrisrichardson.eventstore.examples.todolist.queryside.Todo;
-import net.chrisrichardson.eventstore.examples.todolist.queryside.TodoQueryController;
-import net.chrisrichardson.eventstore.examples.todolist.queryside.TodoQueryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.mvc.ControllerLinkBuilder;
 import org.springframework.util.Assert;
@@ -30,7 +30,7 @@ public class TodoCommandController extends BaseController {
     @Autowired
     private TodoService todoService;
     @Autowired
-    private TodoQueryService todoQueryService;
+    private TodoQueryServiceImpl todoQueryServiceImpl;
 
     @RequestMapping(method = POST)
     public Observable<ResourceWithUrl> saveTodo(@RequestBody TodoInfo todo, HttpServletRequest request) {
@@ -45,9 +45,9 @@ public class TodoCommandController extends BaseController {
 
     @RequestMapping(method = DELETE)
     public void deleteAllTodos() throws Exception {
-        List<Todo> todosToDelete = todoQueryService.getAll();
+        List<Todo> todosToDelete = todoQueryServiceImpl.getAll();
         if (todosToDelete.size() > 0) {
-            todoService.deleteAll(todoQueryService.getAll()
+            todoService.deleteAll(todoQueryServiceImpl.getAll()
                     .stream()
                     .map(Todo::getId)
                     .collect(Collectors.toList()));
@@ -63,7 +63,7 @@ public class TodoCommandController extends BaseController {
     protected ResourceWithUrl toResource(TodoInfo todo, String id) {
         ResourceWithUrl<TodoInfo> result = new ResourceWithUrl<>(todo);
         result.setId(id);
-        result.setUrl(ControllerLinkBuilder.linkTo(methodOn(TodoQueryController.class).getTodo(id)).withSelfRel().getHref());
+        result.setUrl(ControllerLinkBuilder.linkTo(methodOn(TodoHateoasController.class).getTodo(id)).withSelfRel().getHref());
         return result;
     }
 }
