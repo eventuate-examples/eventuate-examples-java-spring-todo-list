@@ -29,21 +29,17 @@ public abstract class AbstractTodoRestAPITest {
 
     protected int port;
 
-    private String baseUrl(String path) {
-        return "http://" + getHost() + ":" + getPort() + "/" + path;
+    private String commandsideBaseUrl(String path) {
+        return "http://" + getCommandsideHost() + ":" + getCommandsidePort() + "/" + path;
+    }
+
+    private String querysideBaseUrl(String path) {
+        return "http://" + getQuerysideHost() + ":" + getQuerysidePort() + "/" + path;
     }
 
     @Autowired
     private RestTemplate restTemplate;
 
-
-    private String todoUrl(String todoId) {
-        return baseUrl("todos/" + todoId);
-    }
-
-    private String todoUrl() {
-        return baseUrl("todos");
-    }
 
 
     private TodoWithUrl awaitCreationInView(String todoId) {
@@ -51,25 +47,24 @@ public abstract class AbstractTodoRestAPITest {
     }
 
     private ResponseEntity<TodoWithUrl> createTodo(TodoInfo todoToSave) {
-        ResponseEntity<TodoWithUrl> postResponse = restTemplate.postForEntity(todoUrl(), todoToSave, TodoWithUrl.class);
+        ResponseEntity<TodoWithUrl> postResponse = restTemplate.postForEntity(commandsideBaseUrl("todos"), todoToSave, TodoWithUrl.class);
         Assert.assertEquals(HttpStatus.OK, postResponse.getStatusCode());
         return postResponse;
     }
 
 
     private ResponseEntity<TodoWithUrl> getTodo(String todoId) {
-        return restTemplate.getForEntity(todoUrl(todoId), TodoWithUrl.class);
+        return restTemplate.getForEntity(querysideBaseUrl("todos/" + todoId), TodoWithUrl.class);
     }
 
     private ResponseEntity<TodoWithUrl[]> getTodos() {
-        return restTemplate.getForEntity(todoUrl(), TodoWithUrl[].class);
+        return restTemplate.getForEntity(querysideBaseUrl("todos"), TodoWithUrl[].class);
     }
 
     private void assertTodoEquals(TodoWithUrl expectedTodo, TodoWithUrl todo) {
         Assert.assertEquals(expectedTodo.getTitle(), todo.getTitle());
         Assert.assertEquals(expectedTodo.getOrder(), todo.getOrder());
         Assert.assertEquals(expectedTodo.isCompleted(), todo.isCompleted());
-        Assert.assertEquals(expectedTodo.getUrl(), todo.getUrl());
     }
 
     private void assertTodoContains(TodoWithUrl expectedTodo, List<TodoWithUrl> todoList) {
@@ -82,12 +77,12 @@ public abstract class AbstractTodoRestAPITest {
         todoWithUrl.setOrder(todo.getOrder());
         todoWithUrl.setTitle(todo.getTitle());
         todoWithUrl.setId(todoId);
-        todoWithUrl.setUrl(todoUrl(todoId));
+        todoWithUrl.setUrl(querysideBaseUrl("todos/" + todoId));
         return todoWithUrl;
     }
 
     private ResponseEntity<TodoWithUrl> updateTodo(String todoId, TodoInfo patch) {
-        ResponseEntity<TodoWithUrl> patchResult = restTemplate.exchange(todoUrl(todoId), HttpMethod.PATCH, new HttpEntity<>(patch),
+        ResponseEntity<TodoWithUrl> patchResult = restTemplate.exchange(commandsideBaseUrl("todos/" + todoId), HttpMethod.PATCH, new HttpEntity<>(patch),
                 TodoWithUrl.class);
         Assert.assertEquals(HttpStatus.OK, patchResult.getStatusCode());
         return patchResult;
@@ -130,7 +125,7 @@ public abstract class AbstractTodoRestAPITest {
         TodoInfo todoToSave = new TodoInfo("a todo");
         createAndWaitForView(todoToSave);
 
-        restTemplate.delete(todoUrl());
+        restTemplate.delete(commandsideBaseUrl("todos"));
 
         awaitSuccessfulRequest(
                 this::getTodos,
@@ -145,7 +140,7 @@ public abstract class AbstractTodoRestAPITest {
         TodoInfo todoToSave = new TodoInfo("a todo");
         TodoWithUrl todo = createAndWaitForView(todoToSave);
 
-        restTemplate.delete(todoUrl(todo.getId()));
+        restTemplate.delete(commandsideBaseUrl("todos/" + todo.getId()));
 
         awaitNotFoundResponse(idx -> getTodo(todo.getId()));
     }
@@ -188,8 +183,12 @@ public abstract class AbstractTodoRestAPITest {
     }
 
 
-    protected abstract int getPort();
+    protected abstract int getCommandsidePort();
 
-    protected abstract String getHost();
+    protected abstract String getCommandsideHost();
+
+    protected abstract int getQuerysidePort();
+
+    protected abstract String getQuerysideHost();
 }
 

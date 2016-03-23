@@ -1,5 +1,10 @@
 # /bin/bash
 
+if [ -z "$EVENTUATE_API_KEY_ID" -o -z "$EVENTUATE_API_KEY_SECRET" ] ; then
+  echo You must set EVENTUATE_API_KEY_ID and  EVENTUATE_API_KEY_SECRET
+  exit -1
+fi
+
 set -e
 docker-compose stop
 docker-compose rm -v --force
@@ -18,22 +23,25 @@ fi
 
 ./gradlew $* build
 
-docker-compose up -d standaloneservice
+docker-compose up -d commandsideservice
+docker-compose up -d querysideservice
 
 ./gradlew --offline $* :e2etest:cleanTest :e2etest:testClasses
 
-echo -n waiting for service....
+echo -n waiting for services ....
 
 set +e
 
 while [[ true ]]; do
-        nc -z -w 4 ${DOCKER_HOST_IP?} 8080
-        if [[ "$?" -eq "0" ]]; then
-                echo connected
-                break
-        fi
-        echo -n .
-        sleep 1
+
+    curl -q http://${DOCKER_HOST_IP?}:8081/health >& /dev/null
+    if [[ "$?" -eq "0" ]]; then
+        echo connected
+        break
+    fi
+
+    echo -n .
+    sleep 1
 done
 
 set -e

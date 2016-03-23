@@ -1,6 +1,5 @@
 package net.chrisrichardson.eventstore.examples.todolist.queryside;
 
-import net.chrisrichardson.eventstore.EntityIdentifier;
 import net.chrisrichardson.eventstore.examples.todolist.TodoHateoasController;
 import net.chrisrichardson.eventstore.examples.todolist.common.controller.BaseController;
 import net.chrisrichardson.eventstore.examples.todolist.common.model.ResourceWithUrl;
@@ -8,10 +7,8 @@ import net.chrisrichardson.eventstore.examples.todolist.model.Todo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import rx.Observable;
 
 import java.util.Collection;
 import java.util.List;

@@ -14,12 +14,22 @@ public class RestAPITest extends AbstractTodoRestAPITest {
     private int port;
 
     @Override
-    protected int getPort() {
+    protected int getCommandsidePort() {
         return port;
     }
 
     @Override
-    protected String getHost() {
+    protected String getCommandsideHost() {
+        return "localhost";
+    }
+
+    @Override
+    protected int getQuerysidePort() {
+        return port;
+    }
+
+    @Override
+    protected String getQuerysideHost() {
         return "localhost";
     }
 }
