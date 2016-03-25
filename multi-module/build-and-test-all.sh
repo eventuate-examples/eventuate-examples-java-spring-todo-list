@@ -21,27 +21,34 @@ if [ -z "$SPRING_DATASOURCE_URL" ] ; then
   echo Set SPRING_DATASOURCE_URL $SPRING_DATASOURCE_URL
 fi
 
-./gradlew $* build
-
-docker-compose up -d commandsideservice
-docker-compose up -d querysideservice
+./gradlew $* build -x :e2etest:test
 
 ./gradlew --offline $* :e2etest:cleanTest :e2etest:testClasses
+
+docker-compose up -d commandsideservice querysideservice
 
 echo -n waiting for services ....
 
 set +e
 
-while [[ true ]]; do
+done=false
+ports=(8081 8082)
 
-    curl -q http://${DOCKER_HOST_IP?}:8081/health >& /dev/null
-    if [[ "$?" -eq "0" ]]; then
-        echo connected
-        break
-    fi
-
-    echo -n .
-    sleep 1
+while [[ "$done" = false ]]; do
+        for port in $ports; do
+                curl -q http://localhost:${port}/health >& /dev/null
+                if [[ "$?" -eq "0" ]]; then
+                        done=true
+                else
+                        done=false
+                fi
+        done
+        if [[ "$done" = true ]]; then
+                echo connected
+                break;
+  fi
+  echo -n .
+  sleep 1
 done
 
 set -e
