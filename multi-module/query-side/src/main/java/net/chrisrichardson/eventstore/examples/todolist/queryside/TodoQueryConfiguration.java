@@ -1,10 +1,7 @@
 package net.chrisrichardson.eventstore.examples.todolist.queryside;
 
-import net.chrisrichardson.eventstore.examples.todolist.queryside.TodoQueryService;
-import net.chrisrichardson.eventstore.examples.todolist.queryside.TodoQueryWorkflow;
-import net.chrisrichardson.eventstore.examples.todolist.queryside.TodoRepository;
+import net.chrisrichardson.eventstore.examples.todolist.TodoRepository;
 import net.chrisrichardson.eventstore.javaapi.consumer.EnableJavaEventHandlers;
-import net.chrisrichardson.eventstore.subscriptions.EnableEventHandlers;
 import net.chrisrichardson.eventstore.subscriptions.config.EventStoreSubscriptionsConfiguration;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.web.HttpMessageConverters;
@@ -27,13 +24,13 @@ import org.springframework.http.converter.json.MappingJackson2HttpMessageConvert
 public class TodoQueryConfiguration {
 
     @Bean
-    public TodoQueryWorkflow todoQueryWorkflow(TodoQueryService queryService) {
+    public TodoQueryWorkflow todoQueryWorkflow(TodoQueryServiceImpl queryService) {
         return new TodoQueryWorkflow(queryService);
     }
 
     @Bean
-    public TodoQueryService queryService(TodoRepository repository) {
-        return new TodoQueryService(repository);
+    public TodoQueryServiceImpl queryService(TodoRepository repository) {
+        return new TodoQueryServiceImpl(repository);
     }
 
     @Bean
