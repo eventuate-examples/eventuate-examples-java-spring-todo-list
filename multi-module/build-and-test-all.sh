@@ -36,7 +36,7 @@ ports=(8081 8082)
 
 while [[ "$done" = false ]]; do
         for port in $ports; do
-                curl -q http://localhost:${port}/health >& /dev/null
+                curl -q http://${DOCKER_HOST_IP}:${port}/health >& /dev/null
                 if [[ "$?" -eq "0" ]]; then
                         done=true
                 else
@@ -57,4 +57,3 @@ set -e
 
 docker-compose stop
 docker-compose rm -v --force
-
