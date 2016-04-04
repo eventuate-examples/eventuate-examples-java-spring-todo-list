@@ -1,8 +1,9 @@
-package net.chrisrichardson.eventstore.examples.todolist.commandside.config;
+package net.chrisrichardson.eventstore.examples.todolist.queryside;
 
 import net.chrisrichardson.eventstore.examples.todolist.common.util.ObservableReturnValueHandler;
 import org.springframework.boot.context.embedded.ServletListenerRegistrationBean;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.context.request.RequestContextListener;
 import org.springframework.web.method.support.HandlerMethodReturnValueHandler;
@@ -13,7 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Configuration
-public class TodoWebCommandSideConfiguration extends WebMvcConfigurerAdapter {
+public class TodoWebQuerySideConfiguration extends WebMvcConfigurerAdapter {
 
     class FakeThing {
     }

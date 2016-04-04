@@ -1,14 +1,11 @@
 package net.chrisrichardson.eventstore.examples.todolist;
 
-import net.chrisrichardson.eventstore.examples.todolist.testutil.BasicWebTestConfiguration;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.IntegrationTest;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 
-import javax.annotation.PostConstruct;
 
-
-@SpringApplicationConfiguration(classes = {BasicWebTestConfiguration.class})
+@SpringApplicationConfiguration(classes = {E2ETestConfiguration.class})
 @IntegrationTest
 public class EndToEndTest extends AbstractTodoRestAPITest {
 
@@ -16,12 +13,22 @@ public class EndToEndTest extends AbstractTodoRestAPITest {
     private String hostName;
 
     @Override
-    protected int getPort() {
-        return 8080;
+    protected int getCommandsidePort() {
+        return 8081;
     }
 
     @Override
-    protected String getHost() {
+    protected String getCommandsideHost() {
+        return hostName;
+    }
+
+    @Override
+    protected int getQuerysidePort() {
+        return 8082;
+    }
+
+    @Override
+    protected String getQuerysideHost() {
         return hostName;
     }
 }

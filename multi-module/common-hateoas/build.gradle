@@ -2,7 +2,6 @@ apply plugin: 'java'
 
 dependencies {
     compile project(":common")
-    compile project(":common-hateoas")
 
     compile "net.chrisrichardson.eventstore.client:eventstore-java-client_2.10:$eventStoreClientVersion"
 

@@ -2,6 +2,7 @@ apply plugin: 'java'
 
 dependencies {
     testCompile project(":command-side")
+    testCompile project(":query-side")
 
     testCompile project(":test-utils")
     testCompile "junit:junit:4.11"

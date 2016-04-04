@@ -1,5 +1,10 @@
 # /bin/bash
 
+if [ -z "$EVENTUATE_API_KEY_ID" -o -z "$EVENTUATE_API_KEY_SECRET" ] ; then
+  echo You must set EVENTUATE_API_KEY_ID and  EVENTUATE_API_KEY_SECRET
+  exit -1
+fi
+
 set -e
 docker-compose stop
 docker-compose rm -v --force
@@ -16,24 +21,34 @@ if [ -z "$SPRING_DATASOURCE_URL" ] ; then
   echo Set SPRING_DATASOURCE_URL $SPRING_DATASOURCE_URL
 fi
 
-./gradlew $* build
-
-docker-compose up -d standaloneservice
+./gradlew $* build -x :e2etest:test
 
 ./gradlew --offline $* :e2etest:cleanTest :e2etest:testClasses
 
-echo -n waiting for service....
+docker-compose up -d commandsideservice querysideservice
+
+echo -n waiting for services ....
 
 set +e
 
-while [[ true ]]; do
-        nc -z -w 4 ${DOCKER_HOST_IP?} 8080
-        if [[ "$?" -eq "0" ]]; then
+done=false
+ports=(8081 8082)
+
+while [[ "$done" = false ]]; do
+        for port in $ports; do
+                curl -q http://localhost:${port}/health >& /dev/null
+                if [[ "$?" -eq "0" ]]; then
+                        done=true
+                else
+                        done=false
+                fi
+        done
+        if [[ "$done" = true ]]; then
                 echo connected
-                break
-        fi
-        echo -n .
-        sleep 1
+                break;
+  fi
+  echo -n .
+  sleep 1
 done
 
 set -e
