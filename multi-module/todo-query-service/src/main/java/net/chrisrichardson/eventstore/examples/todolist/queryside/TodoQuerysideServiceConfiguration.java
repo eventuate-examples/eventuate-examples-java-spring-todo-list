@@ -1,12 +1,12 @@
 package net.chrisrichardson.eventstore.examples.todolist.queryside;
 
-import net.chrisrichardson.eventstore.client.config.EventStoreHttpClientConfiguration;
+import io.eventuate.javaclient.spring.httpstomp.EventuateHttpStompClientConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Import;
 
 
 @SpringBootApplication
-@Import({TodoQueryConfiguration.class, EventStoreHttpClientConfiguration.class})
+@Import({TodoQueryConfiguration.class, EventuateHttpStompClientConfiguration.class})
 public class TodoQuerysideServiceConfiguration {
 
 }

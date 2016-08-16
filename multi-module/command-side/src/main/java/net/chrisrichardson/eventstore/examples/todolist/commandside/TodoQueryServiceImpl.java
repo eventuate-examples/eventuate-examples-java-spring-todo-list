@@ -2,14 +2,15 @@ package net.chrisrichardson.eventstore.examples.todolist.commandside;
 
 
 
-import net.chrisrichardson.eventstore.EntityIdentifier;
+import io.eventuate.CompletableFutureUtil;
 import net.chrisrichardson.eventstore.examples.todolist.TodoQueryService;
 import net.chrisrichardson.eventstore.examples.todolist.TodoRepository;
 import net.chrisrichardson.eventstore.examples.todolist.model.Todo;
-import rx.Observable;
 
+import javax.persistence.EntityNotFoundException;
 import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.CompletableFuture;
 
 
 public class TodoQueryServiceImpl implements TodoQueryService {
@@ -26,17 +27,12 @@ public class TodoQueryServiceImpl implements TodoQueryService {
     }
 
     @Override
-    public Optional<Todo> findById(String id) {
-        return Optional.of(repository.findOne(id));
-    }
-
-    @Override
-    public Observable<Todo> findById(EntityIdentifier todoId) {
-        Todo res = repository.findOne(todoId.getId());
+    public CompletableFuture<Todo> findById(String todoId) {
+        Todo res = repository.findOne(todoId);
         if (res != null) {
-            return Observable.just(res);
+            return CompletableFuture.completedFuture(res);
         }
-        return Observable.empty();
+        return CompletableFutureUtil.failedFuture(new EntityNotFoundException("No todo found for given id"));
     }
 
 }

@@ -1,6 +1,8 @@
 package net.chrisrichardson.eventstore.examples.todolist.commandside.config;
 
-import net.chrisrichardson.eventstore.EventStore;
+import io.eventuate.AggregateRepository;
+import io.eventuate.EventuateAggregateStore;
+import io.eventuate.javaclient.spring.EnableEventHandlers;
 import net.chrisrichardson.eventstore.examples.todolist.commandside.TodoQueryServiceImpl;
 import net.chrisrichardson.eventstore.examples.todolist.commandside.command.TodoCommand;
 import net.chrisrichardson.eventstore.examples.todolist.commandside.domain.TodoAggregate;
@@ -8,9 +10,6 @@ import net.chrisrichardson.eventstore.examples.todolist.commandside.domain.TodoB
 import net.chrisrichardson.eventstore.examples.todolist.commandside.domain.TodoCommandWorkflow;
 import net.chrisrichardson.eventstore.examples.todolist.commandside.domain.TodoService;
 import net.chrisrichardson.eventstore.examples.todolist.TodoRepository;
-import net.chrisrichardson.eventstore.javaapi.consumer.EnableJavaEventHandlers;
-import net.chrisrichardson.eventstore.repository.AggregateRepository;
-import net.chrisrichardson.eventstore.subscriptions.config.EventStoreSubscriptionsConfiguration;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.web.HttpMessageConverters;
 import org.springframework.boot.orm.jpa.EntityScan;
@@ -24,12 +23,12 @@ import org.springframework.http.converter.json.MappingJackson2HttpMessageConvert
 
 
 @Configuration
-@Import({EventStoreSubscriptionsConfiguration.class, TodoWebCommandSideConfiguration.class})
+@Import({TodoWebCommandSideConfiguration.class})
 @EnableAutoConfiguration
 @ComponentScan("net.chrisrichardson.eventstore.examples.todolist")
 @EntityScan("net.chrisrichardson.eventstore.examples.todolist")
 @EnableJpaRepositories("net.chrisrichardson.eventstore.examples.todolist")
-@EnableJavaEventHandlers
+@EnableEventHandlers
 public class TodoCommandSideConfiguration {
 
     @Bean
@@ -38,12 +37,12 @@ public class TodoCommandSideConfiguration {
     }
 
     @Bean
-    public AggregateRepository<TodoAggregate, TodoCommand> aggregateRepository(EventStore eventStore) {
+    public AggregateRepository<TodoAggregate, TodoCommand> aggregateRepository(EventuateAggregateStore eventStore) {
         return new AggregateRepository<>(TodoAggregate.class, eventStore);
     }
 
     @Bean
-    public AggregateRepository<TodoBulkDeleteAggregate, TodoCommand> bulkDeleteAggregateRepository(EventStore eventStore) {
+    public AggregateRepository<TodoBulkDeleteAggregate, TodoCommand> bulkDeleteAggregateRepository(EventuateAggregateStore eventStore) {
         return new AggregateRepository<>(TodoBulkDeleteAggregate.class, eventStore);
     }
 
