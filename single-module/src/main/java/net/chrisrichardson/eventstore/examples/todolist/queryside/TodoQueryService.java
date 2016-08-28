@@ -1,11 +1,11 @@
 package net.chrisrichardson.eventstore.examples.todolist.queryside;
 
 
-import net.chrisrichardson.eventstore.EntityIdentifier;
-import rx.Observable;
+import io.eventuate.CompletableFutureUtil;
 
 import java.util.List;
-import java.util.Optional;
+import java.util.NoSuchElementException;
+import java.util.concurrent.CompletableFuture;
 
 
 public class TodoQueryService {
@@ -32,16 +32,12 @@ public class TodoQueryService {
         repository.deleteAll();
     }
 
-    public Optional<Todo> findById(String id) {
-        return Optional.of(repository.findOne(id));
-    }
-
-    public Observable<Todo> findById(EntityIdentifier todoId) {
-        Todo res = repository.findOne(todoId.getId());
+    public CompletableFuture<Todo> findById(String todoId) {
+        Todo res = repository.findOne(todoId);
         if (res != null) {
-            return Observable.just(res);
+            return CompletableFuture.completedFuture(res);
         }
-        return Observable.empty();
+        return CompletableFutureUtil.failedFuture(new NoSuchElementException("No todo with given id found"));
     }
 
 

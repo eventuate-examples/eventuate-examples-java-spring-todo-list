@@ -9,5 +9,5 @@ dependencies {
     testCompile "org.mockito:mockito-all:1.9.5"
     testCompile "org.apache.httpcomponents:httpclient:4.5"
     testCompile "org.springframework.boot:spring-boot-starter-test:$springBootVersion"
-    testCompile "net.chrisrichardson.eventstore.client:eventstore-jdbc_2.10:$eventStoreClientVersion"
+    testCompile "io.eventuate.client.java:eventuate-client-java-jdbc:$eventuateClientVersion"
 }

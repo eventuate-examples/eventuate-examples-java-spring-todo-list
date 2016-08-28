@@ -1,7 +1,8 @@
 package net.chrisrichardson.eventstore.examples.todolist.common.event;
 
-import net.chrisrichardson.eventstore.Event;
-import net.chrisrichardson.eventstore.EventEntity;
+
+import io.eventuate.Event;
+import io.eventuate.EventEntity;
 
 @EventEntity(entity = "net.chrisrichardson.eventstore.examples.todolist.commandside.domain.TodoBulkDeleteAggregate")
 public class TodoDeletionRequestedEvent implements Event {

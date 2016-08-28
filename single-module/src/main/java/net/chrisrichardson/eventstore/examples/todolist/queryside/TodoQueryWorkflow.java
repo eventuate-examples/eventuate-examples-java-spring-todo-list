@@ -1,41 +1,40 @@
 package net.chrisrichardson.eventstore.examples.todolist.queryside;
 
 
+import io.eventuate.DispatchedEvent;
+import io.eventuate.EventHandlerMethod;
+import io.eventuate.EventSubscriber;
 import net.chrisrichardson.eventstore.examples.todolist.common.event.TodoCreatedEvent;
 import net.chrisrichardson.eventstore.examples.todolist.common.event.TodoDeletedEvent;
 import net.chrisrichardson.eventstore.examples.todolist.common.event.TodoUpdatedEvent;
-import net.chrisrichardson.eventstore.subscriptions.CompoundEventHandler;
-import net.chrisrichardson.eventstore.subscriptions.DispatchedEvent;
-import net.chrisrichardson.eventstore.subscriptions.EventHandlerMethod;
-import net.chrisrichardson.eventstore.subscriptions.EventSubscriber;
-import rx.Observable;
 
 @EventSubscriber(id = "todoQuerySideEventHandlers")
-public class TodoQueryWorkflow implements CompoundEventHandler {
+public class TodoQueryWorkflow {
 
-    private TodoQueryService todoQueryService;
+  private TodoQueryService todoQueryService;
 
-    public TodoQueryWorkflow(TodoQueryService todoQueryService) {
-        this.todoQueryService = todoQueryService;
-    }
+  public TodoQueryWorkflow(TodoQueryService todoQueryService) {
+    this.todoQueryService = todoQueryService;
+  }
 
-    @EventHandlerMethod
-    public Observable<Object> create(DispatchedEvent<TodoCreatedEvent> de) {
-        Todo todo = new Todo(de.event().getTodo());
-        todo.setId(de.getEntityIdentifier().getId());
-        return Observable.just(todoQueryService.save(todo));
-    }
+  @EventHandlerMethod
+  public void create(DispatchedEvent<TodoCreatedEvent> de) {
+    Todo todo = new Todo(de.getEvent().getTodo());
+    todo.setId(de.getEntityId());
 
-    @EventHandlerMethod
-    public Observable<Object> delete(DispatchedEvent<TodoDeletedEvent> de) {
-        todoQueryService.remove(de.getEntityIdentifier().getId());
-        return Observable.just(null);
-    }
+    todoQueryService.save(todo);
+  }
 
-    @EventHandlerMethod
-    public Observable<Object> update(DispatchedEvent<TodoUpdatedEvent> de) {
-        Todo todo = new Todo(de.event().getTodo());
-        todo.setId(de.getEntityIdentifier().getId());
-        return Observable.just(todoQueryService.save(todo));
-    }
+  @EventHandlerMethod
+  public void delete(DispatchedEvent<TodoDeletedEvent> de) {
+    todoQueryService.remove(de.getEntityId());
+  }
+
+  @EventHandlerMethod
+  public void update(DispatchedEvent<TodoUpdatedEvent> de) {
+    Todo todo = new Todo(de.getEvent().getTodo());
+    todo.setId(de.getEntityId());
+
+    todoQueryService.save(todo);
+  }
 }

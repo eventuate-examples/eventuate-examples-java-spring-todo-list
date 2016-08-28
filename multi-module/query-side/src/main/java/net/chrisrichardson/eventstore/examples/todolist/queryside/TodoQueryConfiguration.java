@@ -1,26 +1,23 @@
 package net.chrisrichardson.eventstore.examples.todolist.queryside;
 
+import io.eventuate.javaclient.spring.EnableEventHandlers;
 import net.chrisrichardson.eventstore.examples.todolist.TodoRepository;
-import net.chrisrichardson.eventstore.javaapi.consumer.EnableJavaEventHandlers;
-import net.chrisrichardson.eventstore.subscriptions.config.EventStoreSubscriptionsConfiguration;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.web.HttpMessageConverters;
 import org.springframework.boot.orm.jpa.EntityScan;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Import;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 
 @Configuration
-@Import({EventStoreSubscriptionsConfiguration.class})
 @EnableAutoConfiguration
 @ComponentScan("net.chrisrichardson.eventstore.examples.todolist")
 @EntityScan("net.chrisrichardson.eventstore.examples.todolist")
 @EnableJpaRepositories("net.chrisrichardson.eventstore.examples.todolist")
-@EnableJavaEventHandlers
+@EnableEventHandlers
 public class TodoQueryConfiguration {
 
     @Bean

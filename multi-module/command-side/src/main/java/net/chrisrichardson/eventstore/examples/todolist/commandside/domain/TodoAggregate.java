@@ -1,9 +1,9 @@
 package net.chrisrichardson.eventstore.examples.todolist.commandside.domain;
 
 
-import net.chrisrichardson.eventstore.Event;
-import net.chrisrichardson.eventstore.EventUtil;
-import net.chrisrichardson.eventstore.ReflectiveMutableCommandProcessingAggregate;
+import io.eventuate.Event;
+import io.eventuate.EventUtil;
+import io.eventuate.ReflectiveMutableCommandProcessingAggregate;
 import net.chrisrichardson.eventstore.examples.todolist.commandside.command.CreateTodoCommand;
 import net.chrisrichardson.eventstore.examples.todolist.commandside.command.DeleteTodoCommand;
 import net.chrisrichardson.eventstore.examples.todolist.commandside.command.TodoCommand;
