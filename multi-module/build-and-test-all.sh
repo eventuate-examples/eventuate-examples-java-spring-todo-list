@@ -12,8 +12,12 @@ docker-compose rm -v --force
 docker-compose up -d mysql
 
 if [ -z "$DOCKER_HOST_IP" ] ; then
-  export DOCKER_HOST_IP=$(docker-machine ip default)
-  echo set DOCKER_HOST_IP $DOCKER_HOST_IP
+  if which docker-machine >/dev/null; then
+    export DOCKER_HOST_IP=$(docker-machine ip default)
+  else
+    export DOCKER_HOST_IP=localhost
+ fi
+ echo set DOCKER_HOST_IP $DOCKER_HOST_IP
 fi
 
 if [ -z "$SPRING_DATASOURCE_URL" ] ; then

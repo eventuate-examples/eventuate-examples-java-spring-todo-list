@@ -1,6 +1,7 @@
 package net.chrisrichardson.eventstore.examples.todolist.commandside.command;
 
-import net.chrisrichardson.eventstore.Command;
+
+import io.eventuate.Command;
 
 public interface TodoCommand extends Command {
 }

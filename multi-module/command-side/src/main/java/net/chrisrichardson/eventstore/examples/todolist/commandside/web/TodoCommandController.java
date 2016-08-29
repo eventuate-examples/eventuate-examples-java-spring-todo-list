@@ -14,10 +14,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import rx.Observable;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
 
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
@@ -33,14 +33,15 @@ public class TodoCommandController extends BaseController {
     private TodoQueryServiceImpl todoQueryServiceImpl;
 
     @RequestMapping(method = POST)
-    public Observable<ResourceWithUrl> saveTodo(@RequestBody TodoInfo todo, HttpServletRequest request) {
+    public CompletableFuture<ResourceWithUrl> saveTodo(@RequestBody TodoInfo todo, HttpServletRequest request) {
         Assert.notNull(todo.getTitle());
-        return todoService.save(todo).map(e -> withRequestAttributeContext(request, () -> toResource(e.entity().getTodo(), e.getEntityIdentifier().getId())));
+        return todoService.save(todo).thenApply(e -> withRequestAttributeContext(request, () -> toResource(e.getAggregate().getTodo(), e.getEntityId())));
     }
 
     @RequestMapping(value = "/{todo-id}", method = DELETE)
-    public Observable<ResourceWithUrl> deleteOneTodo(@PathVariable("todo-id") String id, HttpServletRequest request) {
-        return todoService.remove(id).map(e -> withRequestAttributeContext(request, () -> toResource(e.entity().getTodo(), e.getEntityIdentifier().getId())));
+    public CompletableFuture<ResourceWithUrl> deleteOneTodo(@PathVariable("todo-id") String id, HttpServletRequest request) {
+        return todoService.remove(id)
+                .thenApply(e -> withRequestAttributeContext(request, () -> toResource(e.getAggregate().getTodo(), e.getEntityId())));
     }
 
     @RequestMapping(method = DELETE)
@@ -55,8 +56,8 @@ public class TodoCommandController extends BaseController {
     }
 
     @RequestMapping(value = "/{todo-id}", method = PATCH, headers = {"Content-type=application/json"})
-    public Observable<ResourceWithUrl> updateTodo(@PathVariable("todo-id") String id, @RequestBody TodoInfo newTodo, HttpServletRequest request) {
-        return todoService.update(id, newTodo).map(e -> withRequestAttributeContext(request, () -> toResource(e.entity().getTodo(), e.getEntityIdentifier().getId()))
+    public CompletableFuture<ResourceWithUrl> updateTodo(@PathVariable("todo-id") String id, @RequestBody TodoInfo newTodo, HttpServletRequest request) {
+        return todoService.update(id, newTodo).thenApply(e -> withRequestAttributeContext(request, () -> toResource(e.getAggregate().getTodo(), e.getEntityId()))
         );
     }
 

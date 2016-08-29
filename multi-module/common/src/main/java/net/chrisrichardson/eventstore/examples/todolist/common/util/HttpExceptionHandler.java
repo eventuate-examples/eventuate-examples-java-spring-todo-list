@@ -19,7 +19,7 @@ public class HttpExceptionHandler {
     @ExceptionHandler(Exception.class)
     @ResponseBody
     public ResponseEntity defaultErrorHandler(HttpServletRequest request, HttpServletResponse response, Exception e) throws Exception {
-        if (e instanceof NoSuchElementException) {
+        if (e instanceof NoSuchElementException || e.getCause() instanceof NoSuchElementException) {
             return ResponseEntity.notFound().build();
         }
         return ResponseEntity.badRequest().build();
