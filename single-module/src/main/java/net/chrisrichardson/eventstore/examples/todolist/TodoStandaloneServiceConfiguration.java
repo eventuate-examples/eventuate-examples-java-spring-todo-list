@@ -7,7 +7,7 @@ import org.springframework.context.annotation.Import;
 
 
 @SpringBootApplication
-@Import({TodoCommandSideConfiguration.class, EventuateHttpStompClientConfiguration.class})
+@Import({TodoCommandSideConfiguration.class, EventuateHttpStompClientConfiguration.class, @CommonSw})
 public class TodoStandaloneServiceConfiguration {
 
 }

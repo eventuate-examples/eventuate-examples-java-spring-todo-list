@@ -3,6 +3,7 @@ apply plugin: 'java'
 apply plugin: 'spring-boot'
 
 dependencies {
+    compile project(":common-swagger")
     compile project(":command-side")
     compile project(":query-side")
 
