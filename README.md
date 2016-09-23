@@ -49,6 +49,16 @@ It has an event handler that subscribes to Todo events and updates MySQL.
 To run the Todo List application you need credentials for the Eventuate platform.
 You can get them by [signing up here](https://signup.eventuate.io/).
 
+# Two versions of the source code
+
+There are two versions of the source code:
+
+* `single-module` - a single module Gradle project. It is the easiest to get started with.
+* `multi-module` - a multi-module Gradle project.
+It illustrates how to use multiple modules to separate the command side code from the query-side code.
+
+Note: for simplicity, both versions build a monolithic application.
+
 # Running MySQL
 
 In order to run the tests and to run the application you need a MySQL database.
