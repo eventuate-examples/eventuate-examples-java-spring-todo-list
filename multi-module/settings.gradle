@@ -1,6 +1,7 @@
 include 'test-utils'
 
 include 'common'
+include 'common-swagger'
 include 'command-side'
 include 'query-side'
 
@@ -10,4 +11,5 @@ include 'e2etest'
 include 'todo-command-service'
 include 'todo-query-service'
 include 'common-hateoas'
+include 'common-swagger'
 
