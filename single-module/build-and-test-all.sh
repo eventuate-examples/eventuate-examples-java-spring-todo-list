@@ -22,7 +22,7 @@ if [ -z "$DOCKER_HOST_IP" ] ; then
 fi
 
 if [ -z "$SPRING_DATASOURCE_URL" ] ; then
-  export SPRING_DATASOURCE_URL=jdbc:mysql://${DOCKER_HOST_IP}:3307/es-test
+  export SPRING_DATASOURCE_URL=jdbc:mysql://${DOCKER_HOST_IP}/es-test
   echo Set SPRING_DATASOURCE_URL $SPRING_DATASOURCE_URL
 fi
 

@@ -1,5 +1,5 @@
 standaloneservice:
-  image: java:8
+  image: java:openjdk-8u91-jdk
   working_dir: /app
   volumes:
     - ./build/libs:/app
@@ -20,4 +20,4 @@ mysql:
   expose:
     - "3306"
   ports:
-    - "3307:3306"
+    - "3306:3306"

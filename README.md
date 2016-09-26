@@ -27,7 +27,7 @@ Note: for simplicity, the Todo List service is deployed as a monolithic server b
 # Todo List Server design
 
 The Todo List server has a Spring MVC-based REST API for creating, updating and querying todo list items.
-The Todo List server is written using the [Eventuate Client Framework for Java](http://eventuate.io/docs/java/eventuate-client-framework-for-java.html), which provides an event sourcing based programming model.
+The Todo List server is written using the [Eventuate Client Framework for Java](http://eventuate.io/docs/java/eventuate-client-framework-for-java.html), which provides an [event sourcing based programming model](http://eventuate.io/whyeventsourcing.html).
 The server persists todo list items as events in the [Eventuate event store](http://eventuate.io/howeventuateworks.html).
 The Todo List server also maintains a materialized view of the todo list in MySQL.
 
@@ -35,7 +35,7 @@ The following diagram shows the design of the server:
 
 <img class="img-responsive" src="http://eventuate.io/demos/eventuate-todo-server.png">
 
-The application is structured using the Command Query Responsibility Segregation (CQRS) pattern.
+The application is structured using the [Command Query Responsibility Segregation (CQRS) pattern](http://microservices.io/patterns/data/cqrs.html).
 It consists of the following modules:
 
 *  Command-side module - it handles requests to create and update (e.g. HTTP POST, PUT and DELETE requests) todo list items.
@@ -59,55 +59,37 @@ It illustrates how to use multiple modules to separate the command side code fro
 
 Note: for simplicity, both versions build a monolithic application.
 
-# Running MySQL
-
-In order to run the tests and to run the application you need a MySQL database.
-The easiest way to run MySQL is with docker-compose:
-
-```
-docker-compose up -d mysql
-```
-
 # Building the application
 
-Before building and/or running application, you must set an environment variable that tells the application how to connect to MySQL:
+You can build the application using this Gradle command:
 
 ```
-export SPRING_DATASOURCE_URL=jdbc:mysql://<DOCKER_IP_ADDRESS>:3307/es-test
-```
-
-You can then build the application using this Gradle command:
-
-```
-./gradlew clean build
+./gradlew assemble
 ```
 
 Note: to use Gradle you just need to have the JDK in your path. You do not need to install it.
 
-Note: that the the end-to-end tests in the `e2etest` module will fail because the service is not running.
-
 
 # Running the service
 
-Now that you built the application you can run the application using these commands:
+Now that you have built the application, you can run it using this command:
 
 ```
 docker-compose up -d
 ```
 
-# Running the end to end tests
+# Using the application
 
-Now that the service is running you can run the end-to-end tests:
+Once the service(s) have started, you can use the application via the Swagger UI.
 
-```
-./gradlew :e2etest:cleanTest :e2etest:test
-```
+If you are running the `multi-module` version:
 
-Note: the environment variable `DOCKER_HOST_IP` must be set to the hostname/IP address of where the service is running, e.g:
+* `http://${DOCKER_HOST_IP}:8081/swagger-ui.html` - the command-side service
+* `http://${DOCKER_HOST_IP}:8082/swagger-ui.html` - the query-side service
 
-```
-export DOCKER_HOST_IP=$(docker-machine ip default)
-```
+If you are running the `single-module` version:
+
+* `http://${DOCKER_HOST_IP}:8080/swagger-ui.html` - the monolithic application
 
 # Got questions?
 
