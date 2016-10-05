@@ -1,11 +1,11 @@
 commandsideservice:
   image: java:openjdk-8u91-jdk
-  command: java -jar /app/todo-command-service.jar  --spring.datasource.url=jdbc:mysql://mysql/es-test
+  command: java -jar /app/todo-command-service.jar
   ports:
     - "8081:8080"
 
 querysideservice:
   image: java:openjdk-8u91-jdk
-  command: java -jar /app/todo-query-service.jar --spring.datasource.url=jdbc:mysql://mysql/es-test
+  command: java -jar /app/todo-query-service.jar
   ports:
     - "8082:8080"
