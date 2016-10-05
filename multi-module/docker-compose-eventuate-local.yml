@@ -36,9 +36,9 @@ cdcservice:
     EVENTUATELOCAL_CDC_DB_PASSWORD: rootpassword
 
 mysql:
-  extends:
-    file: docker-compose-common.yml
-    service: mysql
+  image: eventuateio/eventuateio-local-mysql:0.6.0
+  ports:
+    - 3306:3306
   environment:
     - MYSQL_ROOT_PASSWORD=rootpassword
     - MYSQL_USER=mysqluser

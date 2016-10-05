@@ -9,7 +9,7 @@ commandsideservice:
   environment:
     EVENTUATE_API_KEY_ID: ${EVENTUATE_API_KEY_ID}
     EVENTUATE_API_KEY_SECRET: ${EVENTUATE_API_KEY_SECRET}
-    SPRING_DATASOURCE_URL: ${SPRING_DATASOURCE_URL}
+    SPRING_DATASOURCE_URL: jdbc:mysql://mysql/es-test
 
 querysideservice:
   extends:
@@ -22,7 +22,7 @@ querysideservice:
   environment:
     EVENTUATE_API_KEY_ID: ${EVENTUATE_API_KEY_ID}
     EVENTUATE_API_KEY_SECRET: ${EVENTUATE_API_KEY_SECRET}
-    SPRING_DATASOURCE_URL: ${SPRING_DATASOURCE_URL}
+    SPRING_DATASOURCE_URL: jdbc:mysql://mysql/es-test
 
 mysql:
   image: mysql:5.7
