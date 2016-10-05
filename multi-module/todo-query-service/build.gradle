@@ -1,13 +1,10 @@
-apply plugin: 'java'
-
+apply plugin: VerifyEventStoreEnvironmentPlugin
+apply plugin: EventuateDependencyPlugin
 apply plugin: 'spring-boot'
 
 dependencies {
     compile project(":query-side")
     compile project(":common-swagger")
-
-    compile "io.eventuate.client.java:eventuate-client-java-spring:$eventuateClientVersion"
-    compile "io.eventuate.client.java:eventuate-client-java-http-stomp-spring:$eventuateClientVersion"
 
     compile 'mysql:mysql-connector-java:5.1.36'
 
