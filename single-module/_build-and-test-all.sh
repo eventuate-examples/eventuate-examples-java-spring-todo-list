@@ -40,7 +40,7 @@ ${DOCKER_COMPOSE?} up -d mysql $EXTRA_INFRASTRUCTURE_SERVICES
 
 ./gradlew $* build
 
-if [ -z "$EVENTUATE_LOCAL"] && [ -z "$EVENTUATE_API_KEY_ID" -o -z "$EVENTUATE_API_KEY_SECRET" ] ; then
+if [ -z "$EVENTUATE_LOCAL" ] && [ -z "$EVENTUATE_API_KEY_ID" -o -z "$EVENTUATE_API_KEY_SECRET" ] ; then
   echo You must set EVENTUATE_API_KEY_ID and  EVENTUATE_API_KEY_SECRET
   exit -1
 fi
