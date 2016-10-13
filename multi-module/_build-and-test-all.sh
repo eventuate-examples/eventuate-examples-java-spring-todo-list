@@ -52,6 +52,8 @@ fi
 
 ./gradlew --offline $* :e2etest:cleanTest :e2etest:testClasses
 
+${DOCKER_COMPOSE?} build
+
 ${DOCKER_COMPOSE?} up -d commandsideservice querysideservice
 
 ./wait-for-services.sh $DOCKER_HOST_IP 8081 8082
