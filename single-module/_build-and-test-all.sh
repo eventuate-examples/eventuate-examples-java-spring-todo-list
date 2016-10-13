@@ -47,6 +47,8 @@ fi
 
 ./gradlew --offline $* cleanTest
 
+${DOCKER_COMPOSE?} build
+
 ${DOCKER_COMPOSE?} up -d standaloneservice
 
 ./wait-for-services.sh $DOCKER_HOST_IP 8080
