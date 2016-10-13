@@ -2,6 +2,17 @@
 
 set -e
 
+if [ -z "$DOCKER_HOST_IP" ] ; then
+  if [ -z "$DOCKER_HOST" ] ; then
+    export DOCKER_HOST_IP=`hostname`
+  else
+    echo using ${DOCKER_HOST?}
+    XX=${DOCKER_HOST%\:*}
+    export DOCKER_HOST_IP=${XX#tcp\:\/\/}
+  fi
+  echo set DOCKER_HOST_IP $DOCKER_HOST_IP
+fi
+
 DOCKER_COMPOSE="docker-compose -p java-spring-todo-list"
 
 if [ "$1" = "-f" ] ; then
@@ -26,15 +37,6 @@ if [ "$1" = "--no-rm" ] ; then
 fi
 
 ${DOCKER_COMPOSE?} up -d mysql $EXTRA_INFRASTRUCTURE_SERVICES
-
-if [ -z "$DOCKER_HOST_IP" ] ; then
-  if which docker-machine >/dev/null; then
-    export DOCKER_HOST_IP=$(docker-machine ip default)
-  else
-    export DOCKER_HOST_IP=localhost
- fi
- echo set DOCKER_HOST_IP $DOCKER_HOST_IP
-fi
 
 ./gradlew $* build
 

@@ -1,5 +1,4 @@
 standaloneservice:
-  image: java:openjdk-8u91-jdk
-  command: java -jar /app/single-module.jar
+  build: ./
   ports:
     - "8080:8080"

@@ -48,8 +48,6 @@ commandsideservice:
   extends:
     file: docker-compose-common.yml
     service: commandsideservice
-  volumes:
-    - ./todo-command-service/build/libs:/app
   links:
     - mysql
     - kafka
@@ -68,8 +66,6 @@ querysideservice:
   extends:
     file: docker-compose-common.yml
     service: querysideservice
-  volumes:
-    - ./todo-query-service/build/libs:/app
   links:
     - mysql
     - kafka
