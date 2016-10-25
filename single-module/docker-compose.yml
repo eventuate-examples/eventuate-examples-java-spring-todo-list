@@ -7,8 +7,8 @@ standaloneservice:
   links:
     - mysql
   environment:
-      EVENTUATE_API_KEY_ID: ${EVENTUATE_API_KEY_ID}
-      EVENTUATE_API_KEY_SECRET: ${EVENTUATE_API_KEY_SECRET}
+      EVENTUATE_API_KEY_ID:
+      EVENTUATE_API_KEY_SECRET:
       SPRING_DATASOURCE_URL: jdbc:mysql://mysql/es-test
 
 mysql:
