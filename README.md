@@ -44,11 +44,6 @@ The business logic consists of event sourcing based `Todo` aggregates.
 * Query-side module - it handles query requests (ie. HTTP GET requests) by querying a MySQL materialized view that it maintains.
 It has an event handler that subscribes to Todo events and updates MySQL.
 
-# Signing up for Eventuate
-
-To run the Todo List application you need credentials for the Eventuate platform.
-You can get them by [signing up here](https://signup.eventuate.io/).
-
 # Two versions of the source code
 
 There are two versions of the source code:
@@ -57,30 +52,53 @@ There are two versions of the source code:
 * `multi-module` - a multi-module Gradle project.
 It illustrates how to use multiple modules to separate the command side code from the query-side code.
 
-Note: for simplicity, both versions build a monolithic application.
 
-# Building the application
+# Building and running the application
 
-You can build the application using this Gradle command:
+This is a Gradle project.
+However, you do not need to install Gradle since it will be downloaded automatically.
+You just need to have Java 8 installed.
+
+The details of how to build and run the services depend slightly on whether you are using Eventuate SaaS or Eventuate Local.
+
+## Building and running using Eventuate SaaS
+
+First, must [sign up to get your credentials](https://signup.eventuate.io/) in order to get free access to the SaaS version.
+
+Next, build the application
 
 ```
 ./gradlew assemble
 ```
 
-Note: to use Gradle you just need to have the JDK in your path. You do not need to install it.
-
-
-# Running the service
-
-Now that you have built the application, you can run it using this command:
+Next, you can launch the services using [Docker Compose](https://docs.docker.com/compose/):
 
 ```
 docker-compose up -d
 ```
 
+## Building and running using Eventuate Local
+
+First, build the application
+
+```
+./gradlew assemble -P eventuateDriver=local
+```
+
+Next, launch the services using [Docker Compose](https://docs.docker.com/compose/):
+
+```
+export DOCKER_HOST_IP=...
+docker-compose -f docker-compose-eventuate-local.yml up -d
+```
+
+Note: You need to set `DOCKER_HOST_IP` before running Docker Compose.
+This must be an IP address or resolvable hostname.
+It cannot be `localhost`.
+
 # Using the application
 
-Once the service(s) have started, you can use the application via the Swagger UI.
+Once the application has started, you can use the application via the Swagger UI.
 
 If you are running the `multi-module` version:
 
