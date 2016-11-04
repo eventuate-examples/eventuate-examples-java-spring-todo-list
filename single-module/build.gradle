@@ -14,6 +14,9 @@ task wrapper(type: Wrapper) {
 apply plugin: 'java'
 apply plugin: 'spring-boot'
 
+apply plugin: VerifyEventStoreEnvironmentPlugin
+apply plugin: EventuateDependencyPlugin
+
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
@@ -24,7 +27,6 @@ repositories {
 
 dependencies {
     compile "io.eventuate.client.java:eventuate-client-java-spring:$eventuateClientVersion"
-    compile "io.eventuate.client.java:eventuate-client-java-http-stomp-spring:$eventuateClientVersion"
 
     compile 'mysql:mysql-connector-java:5.1.36'
 
