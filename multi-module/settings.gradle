@@ -2,14 +2,12 @@ include 'test-utils'
 
 include 'common'
 include 'common-swagger'
-include 'command-side'
 include 'query-side'
 
 include 'rest-api-integration-tests'
-include 'standalone-service'
 include 'e2etest'
-include 'todo-command-service'
-include 'todo-query-service'
+include 'todo-service'
+include 'todo-view-service'
 include 'common-hateoas'
 include 'common-swagger'
 
