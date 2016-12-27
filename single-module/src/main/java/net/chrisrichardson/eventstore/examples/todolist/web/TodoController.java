@@ -1,12 +1,11 @@
-package net.chrisrichardson.eventstore.examples.todolist.commandside.web;
+package net.chrisrichardson.eventstore.examples.todolist.web;
 
-import net.chrisrichardson.eventstore.examples.todolist.commandside.domain.TodoService;
+import net.chrisrichardson.eventstore.examples.todolist.backend.domain.TodoService;
 import net.chrisrichardson.eventstore.examples.todolist.common.controller.BaseController;
-import net.chrisrichardson.eventstore.examples.todolist.common.model.ResourceWithUrl;
+import net.chrisrichardson.eventstore.examples.todolist.model.ResourceWithUrl;
 import net.chrisrichardson.eventstore.examples.todolist.model.TodoInfo;
-import net.chrisrichardson.eventstore.examples.todolist.queryside.Todo;
-import net.chrisrichardson.eventstore.examples.todolist.queryside.TodoQueryController;
-import net.chrisrichardson.eventstore.examples.todolist.queryside.TodoQueryService;
+import net.chrisrichardson.eventstore.examples.todolist.backend.Todo;
+import net.chrisrichardson.eventstore.examples.todolist.backend.TodoQueryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.mvc.ControllerLinkBuilder;
 import org.springframework.util.Assert;
@@ -26,7 +25,7 @@ import static org.springframework.web.bind.annotation.RequestMethod.*;
 
 @RestController
 @RequestMapping(value = "/todos")
-public class TodoCommandController extends BaseController {
+public class TodoController extends BaseController {
     @Autowired
     private TodoService todoService;
     @Autowired
@@ -63,7 +62,7 @@ public class TodoCommandController extends BaseController {
     protected ResourceWithUrl toResource(TodoInfo todo, String id) {
         ResourceWithUrl<TodoInfo> result = new ResourceWithUrl<>(todo);
         result.setId(id);
-        result.setUrl(ControllerLinkBuilder.linkTo(methodOn(TodoQueryController.class).getTodo(id)).withSelfRel().getHref());
+        result.setUrl(ControllerLinkBuilder.linkTo(methodOn(TodoViewController.class).getTodo(id)).withSelfRel().getHref());
         return result;
     }
 }

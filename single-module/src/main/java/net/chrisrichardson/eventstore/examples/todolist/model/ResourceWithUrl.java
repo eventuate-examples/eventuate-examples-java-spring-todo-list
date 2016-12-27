@@ -1,4 +1,4 @@
-package net.chrisrichardson.eventstore.examples.todolist.common.model;
+package net.chrisrichardson.eventstore.examples.todolist.model;
 
 import com.fasterxml.jackson.annotation.JsonUnwrapped;
 

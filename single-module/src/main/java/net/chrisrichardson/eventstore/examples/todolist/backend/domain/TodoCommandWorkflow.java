@@ -1,10 +1,10 @@
-package net.chrisrichardson.eventstore.examples.todolist.commandside.domain;
+package net.chrisrichardson.eventstore.examples.todolist.backend.domain;
 
 import io.eventuate.EntityWithIdAndVersion;
 import io.eventuate.EventHandlerContext;
 import io.eventuate.EventHandlerMethod;
 import io.eventuate.EventSubscriber;
-import net.chrisrichardson.eventstore.examples.todolist.commandside.command.DeleteTodoCommand;
+import net.chrisrichardson.eventstore.examples.todolist.backend.command.DeleteTodoCommand;
 import net.chrisrichardson.eventstore.examples.todolist.common.event.TodoDeletionRequestedEvent;
 
 import java.util.concurrent.CompletableFuture;

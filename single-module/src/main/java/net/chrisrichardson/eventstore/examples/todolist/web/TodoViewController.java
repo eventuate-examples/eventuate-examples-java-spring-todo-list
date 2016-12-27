@@ -1,7 +1,9 @@
-package net.chrisrichardson.eventstore.examples.todolist.queryside;
+package net.chrisrichardson.eventstore.examples.todolist.web;
 
 import net.chrisrichardson.eventstore.examples.todolist.common.controller.BaseController;
-import net.chrisrichardson.eventstore.examples.todolist.common.model.ResourceWithUrl;
+import net.chrisrichardson.eventstore.examples.todolist.model.ResourceWithUrl;
+import net.chrisrichardson.eventstore.examples.todolist.backend.Todo;
+import net.chrisrichardson.eventstore.examples.todolist.backend.TodoQueryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.ResponseEntity;
@@ -22,7 +24,7 @@ import static org.springframework.web.bind.annotation.RequestMethod.GET;
 
 @RestController
 @RequestMapping(value = "/todos")
-public class TodoQueryController extends BaseController {
+public class TodoViewController extends BaseController {
 
     @Autowired
     private TodoQueryService queryService;
@@ -41,7 +43,7 @@ public class TodoQueryController extends BaseController {
     protected ResourceWithUrl toResource(Todo todo) {
         ResourceWithUrl<Todo> result = new ResourceWithUrl<>(todo);
         if (todo != null) {
-            result.setUrl(linkTo(methodOn(TodoQueryController.class).getTodo(todo.getId())).withSelfRel().getHref());
+            result.setUrl(linkTo(methodOn(TodoViewController.class).getTodo(todo.getId())).withSelfRel().getHref());
         }
         return result;
     }

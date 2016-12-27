@@ -1,4 +1,4 @@
-package net.chrisrichardson.eventstore.examples.todolist.commandside.command;
+package net.chrisrichardson.eventstore.examples.todolist.backend.command;
 
 
 import io.eventuate.Command;

@@ -1,8 +1,8 @@
-package net.chrisrichardson.eventstore.examples.todolist.commandside.domain;
+package net.chrisrichardson.eventstore.examples.todolist.backend.domain;
 
 import io.eventuate.AggregateRepository;
 import io.eventuate.EntityWithIdAndVersion;
-import net.chrisrichardson.eventstore.examples.todolist.commandside.command.*;
+import net.chrisrichardson.eventstore.examples.todolist.backend.command.*;
 import net.chrisrichardson.eventstore.examples.todolist.model.TodoInfo;
 
 import java.util.List;

@@ -1,4 +1,4 @@
-package net.chrisrichardson.eventstore.examples.todolist.queryside;
+package net.chrisrichardson.eventstore.examples.todolist.backend;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

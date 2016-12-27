@@ -1,9 +1,9 @@
-package net.chrisrichardson.eventstore.examples.todolist.commandside.domain;
+package net.chrisrichardson.eventstore.examples.todolist.backend.domain;
 
 import io.eventuate.Event;
 import io.eventuate.ReflectiveMutableCommandProcessingAggregate;
-import net.chrisrichardson.eventstore.examples.todolist.commandside.command.DeleteTodosCommand;
-import net.chrisrichardson.eventstore.examples.todolist.commandside.command.TodoCommand;
+import net.chrisrichardson.eventstore.examples.todolist.backend.command.DeleteTodosCommand;
+import net.chrisrichardson.eventstore.examples.todolist.backend.command.TodoCommand;
 import net.chrisrichardson.eventstore.examples.todolist.common.event.TodoDeletionRequestedEvent;
 
 import java.util.List;

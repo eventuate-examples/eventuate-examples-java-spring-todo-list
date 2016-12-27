@@ -1,13 +1,13 @@
-package net.chrisrichardson.eventstore.examples.todolist.commandside.domain;
+package net.chrisrichardson.eventstore.examples.todolist.backend.domain;
 
 
 import io.eventuate.Event;
 import io.eventuate.EventUtil;
 import io.eventuate.ReflectiveMutableCommandProcessingAggregate;
-import net.chrisrichardson.eventstore.examples.todolist.commandside.command.CreateTodoCommand;
-import net.chrisrichardson.eventstore.examples.todolist.commandside.command.DeleteTodoCommand;
-import net.chrisrichardson.eventstore.examples.todolist.commandside.command.TodoCommand;
-import net.chrisrichardson.eventstore.examples.todolist.commandside.command.UpdateTodoCommand;
+import net.chrisrichardson.eventstore.examples.todolist.backend.command.CreateTodoCommand;
+import net.chrisrichardson.eventstore.examples.todolist.backend.command.DeleteTodoCommand;
+import net.chrisrichardson.eventstore.examples.todolist.backend.command.TodoCommand;
+import net.chrisrichardson.eventstore.examples.todolist.backend.command.UpdateTodoCommand;
 import net.chrisrichardson.eventstore.examples.todolist.common.event.TodoCreatedEvent;
 import net.chrisrichardson.eventstore.examples.todolist.common.event.TodoDeletedEvent;
 import net.chrisrichardson.eventstore.examples.todolist.common.event.TodoUpdatedEvent;
