@@ -1,10 +1,9 @@
-package net.chrisrichardson.eventstore.examples.todolist;
+package net.chrisrichardson.eventstore.examples.todolist.integrationtests;
 
+import net.chrisrichardson.eventstore.examples.todolist.AbstractTodoRestAPITest;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.test.context.web.WebAppConfiguration;
-
-import javax.annotation.PostConstruct;
 
 
 @SpringApplicationConfiguration(classes = {RestAPITestConfiguration.class})

@@ -1,6 +1,6 @@
 package net.chrisrichardson.eventstore.examples.todolist.todoservice.web;
 
-import net.chrisrichardson.eventstore.examples.todolist.TodoHateoasController;
+import net.chrisrichardson.eventstore.examples.todolist.hateoas.TodoHateoasController;
 import net.chrisrichardson.eventstore.examples.todolist.common.controller.BaseController;
 import net.chrisrichardson.eventstore.examples.todolist.common.model.ResourceWithUrl;
 import net.chrisrichardson.eventstore.examples.todolist.model.Todo;

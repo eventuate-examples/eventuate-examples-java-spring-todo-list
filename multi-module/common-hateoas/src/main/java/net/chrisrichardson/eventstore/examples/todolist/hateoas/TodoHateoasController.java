@@ -1,4 +1,4 @@
-package net.chrisrichardson.eventstore.examples.todolist;
+package net.chrisrichardson.eventstore.examples.todolist.hateoas;
 
 import net.chrisrichardson.eventstore.examples.todolist.common.controller.BaseController;
 import net.chrisrichardson.eventstore.examples.todolist.common.model.ResourceWithUrl;

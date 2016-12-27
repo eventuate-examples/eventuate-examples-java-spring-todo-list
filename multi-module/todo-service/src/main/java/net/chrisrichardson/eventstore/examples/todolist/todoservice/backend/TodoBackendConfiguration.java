@@ -9,23 +9,17 @@ import net.chrisrichardson.eventstore.examples.todolist.todoservice.backend.doma
 import net.chrisrichardson.eventstore.examples.todolist.todoservice.backend.domain.TodoBulkDeleteAggregate;
 import net.chrisrichardson.eventstore.examples.todolist.todoservice.backend.domain.TodoEventSubscriber;
 import net.chrisrichardson.eventstore.examples.todolist.todoservice.backend.domain.TodoService;
-import net.chrisrichardson.eventstore.examples.todolist.todoservice.web.TodoWebConfiguration;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.web.HttpMessageConverters;
 import org.springframework.boot.orm.jpa.EntityScan;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Import;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 
 
 @Configuration
-@Import({TodoWebConfiguration.class})
-@EnableAutoConfiguration
-@ComponentScan("net.chrisrichardson.eventstore.examples.todolist")
 @EntityScan("net.chrisrichardson.eventstore.examples.todolist")
 @EnableJpaRepositories("net.chrisrichardson.eventstore.examples.todolist")
 @EnableEventHandlers

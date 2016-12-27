@@ -3,7 +3,7 @@ package net.chrisrichardson.eventstore.examples.todolist.todoservice.backend;
 
 
 import io.eventuate.CompletableFutureUtil;
-import net.chrisrichardson.eventstore.examples.todolist.TodoUpdateService;
+import net.chrisrichardson.eventstore.examples.todolist.hateoas.TodoUpdateService;
 import net.chrisrichardson.eventstore.examples.todolist.TodoRepository;
 import net.chrisrichardson.eventstore.examples.todolist.model.Todo;
 

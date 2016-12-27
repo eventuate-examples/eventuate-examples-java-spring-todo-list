@@ -1,5 +1,6 @@
-package net.chrisrichardson.eventstore.examples.todolist;
+package net.chrisrichardson.eventstore.examples.todolist.e2etests;
 
+import net.chrisrichardson.eventstore.examples.todolist.AbstractTodoRestAPITest;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.IntegrationTest;
 import org.springframework.boot.test.SpringApplicationConfiguration;

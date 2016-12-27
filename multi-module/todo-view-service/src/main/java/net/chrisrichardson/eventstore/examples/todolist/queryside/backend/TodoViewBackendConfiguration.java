@@ -13,8 +13,6 @@ import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 
 @Configuration
-@EnableAutoConfiguration
-@ComponentScan("net.chrisrichardson.eventstore.examples.todolist")
 @EntityScan("net.chrisrichardson.eventstore.examples.todolist")
 @EnableJpaRepositories("net.chrisrichardson.eventstore.examples.todolist")
 @EnableEventHandlers

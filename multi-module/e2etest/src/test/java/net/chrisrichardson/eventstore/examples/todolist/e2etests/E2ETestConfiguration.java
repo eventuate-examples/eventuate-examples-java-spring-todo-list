@@ -1,4 +1,4 @@
-package net.chrisrichardson.eventstore.examples.todolist;
+package net.chrisrichardson.eventstore.examples.todolist.e2etests;
 
 import net.chrisrichardson.eventstore.examples.todolist.testutil.BasicWebTestConfiguration;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
