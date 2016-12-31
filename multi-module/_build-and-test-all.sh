@@ -50,7 +50,7 @@ if [ -z "$EVENTUATE_LOCAL" ] && [ -z "$EVENTUATE_API_KEY_ID" -o -z "$EVENTUATE_A
   exit -1
 fi
 
-./gradlew --offline $* :e2etest:cleanTest :e2etest:testClasses
+./gradlew --offline $* -P ignoreE2EFailures=false :e2etest:cleanTest :e2etest:testClasses
 
 ${DOCKER_COMPOSE?} build
 
