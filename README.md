@@ -83,6 +83,7 @@ Next, build the application
 Next, you can launch the services using [Docker Compose](https://docs.docker.com/compose/):
 
 ```
+docker-compose build
 docker-compose up -d
 ```
 
@@ -98,6 +99,7 @@ Next, launch the services using [Docker Compose](https://docs.docker.com/compose
 
 ```
 export DOCKER_HOST_IP=...
+docker-compose -f docker-compose-eventuate-local.yml build
 docker-compose -f docker-compose-eventuate-local.yml up -d
 ```
 

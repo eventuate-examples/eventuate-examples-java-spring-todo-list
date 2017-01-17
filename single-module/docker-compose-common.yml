@@ -1,4 +1,5 @@
 standaloneservice:
   build: ./
+  restart: on-failure:10
   ports:
     - "8080:8080"
