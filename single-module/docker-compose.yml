@@ -9,14 +9,13 @@ standaloneservice:
   environment:
       EVENTUATE_API_KEY_ID: ${EVENTUATE_API_KEY_ID}
       EVENTUATE_API_KEY_SECRET: ${EVENTUATE_API_KEY_SECRET}
-      SPRING_DATASOURCE_URL: jdbc:mysql://mysql/es-test
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql/eventuate
 
 mysql:
-  image: mysql:5.7
-  environment:
-    MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
-    MYSQL_DATABASE: es-test
-  expose:
-    - "3306"
+  build: ./mysql
   ports:
-    - "3306:3306"
+    - 3306:3306
+  environment:
+    - MYSQL_ROOT_PASSWORD=rootpassword
+    - MYSQL_USER=mysqluser
+    - MYSQL_PASSWORD=mysqlpw

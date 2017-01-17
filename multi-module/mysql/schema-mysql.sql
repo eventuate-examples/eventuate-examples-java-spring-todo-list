@@ -1,3 +1,5 @@
+USE eventuate;
+
 DROP table IF EXISTS  todo;
 
 create table todo (
