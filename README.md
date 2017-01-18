@@ -11,6 +11,15 @@ The application also maintains a materialized view of the data in MySQL.
 
 Don't forget to take a look at the other [Eventuate example applications](http://eventuate.io/exampleapps.html).
 
+# Got questions?
+
+Don't hesitate to create an issue or see
+
+* [Website](http://eventuate.io)
+* [Mailing list](https://groups.google.com/d/forum/eventuate-users)
+* [Slack](https://eventuate-users.slack.com). [Get invite](https://eventuateusersslack.herokuapp.com/)
+* [Contact us](http://eventuate.io/contact.html).
+
 # Architecture
 
 The following diagram shows the Todo List application architecture:
@@ -74,6 +83,7 @@ Next, build the application
 Next, you can launch the services using [Docker Compose](https://docs.docker.com/compose/):
 
 ```
+docker-compose build
 docker-compose up -d
 ```
 
@@ -89,6 +99,7 @@ Next, launch the services using [Docker Compose](https://docs.docker.com/compose
 
 ```
 export DOCKER_HOST_IP=...
+docker-compose -f docker-compose-eventuate-local.yml build
 docker-compose -f docker-compose-eventuate-local.yml up -d
 ```
 
@@ -112,4 +123,9 @@ If you are running the `single-module` version:
 
 # Got questions?
 
-Don't hesitate to create an issue or [contact us](http://eventuate.io/contact.html).
+Don't hesitate to create an issue or see
+
+* [Website](http://eventuate.io)
+* [Mailing list](https://groups.google.com/d/forum/eventuate-users)
+* [Slack](https://eventuate-users.slack.com). [Get invite](https://eventuateusersslack.herokuapp.com/)
+* [Contact us](http://eventuate.io/contact.html).

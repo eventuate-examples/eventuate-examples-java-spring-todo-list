@@ -22,6 +22,7 @@ targetCompatibility = 1.8
 
 repositories {
     mavenCentral()
+    jcenter()
     eventuateMavenRepoUrl.split(',').each { repoUrl -> maven { url repoUrl } }
 }
 
@@ -47,9 +48,7 @@ dependencies {
 }
 
 test {
-    filter {
-        includeTestsMatching "net.chrisrichardson.eventstore.examples.todolist.integration.*"
-    }
+    exclude "net/chrisrichardson/eventstore/examples/todolist/e2etests/**"
 }
 
 task e2eTest(type: Test) {

@@ -15,11 +15,11 @@ fi
 
 DOCKER_COMPOSE="docker-compose -p java-spring-todo-list"
 
-if [ "$1" = "-f" ] ; then
+while [ "$1" = "-f" ] ; do
   shift;
   DOCKER_COMPOSE="$DOCKER_COMPOSE -f ${1?}"
   shift
-fi
+done
 
 if [ "$1" = "--use-existing" ] ; then
   shift;
@@ -38,14 +38,14 @@ fi
 
 ${DOCKER_COMPOSE?} up -d mysql $EXTRA_INFRASTRUCTURE_SERVICES
 
-./gradlew $* build
+./gradlew $BUILD_AND_TEST_ALL_EXTRA_GRADLE_ARGS $* build
 
 if [ -z "$EVENTUATE_LOCAL" ] && [ -z "$EVENTUATE_API_KEY_ID" -o -z "$EVENTUATE_API_KEY_SECRET" ] ; then
   echo You must set EVENTUATE_API_KEY_ID and  EVENTUATE_API_KEY_SECRET
   exit -1
 fi
 
-./gradlew --offline $* cleanTest
+./gradlew $BUILD_AND_TEST_ALL_EXTRA_GRADLE_ARGS --offline $* cleanTest
 
 ${DOCKER_COMPOSE?} build
 
@@ -53,7 +53,7 @@ ${DOCKER_COMPOSE?} up -d standaloneservice
 
 ./wait-for-services.sh $DOCKER_HOST_IP 8080
 
-./gradlew --offline $* e2eTest
+./gradlew $BUILD_AND_TEST_ALL_EXTRA_GRADLE_ARGS --offline $* e2eTest
 
 if [ $NO_RM = false ] ; then
   ${DOCKER_COMPOSE?} stop

@@ -1,0 +1,18 @@
+apply plugin: VerifyEventStoreEnvironmentPlugin
+apply plugin: EventuateDependencyPlugin
+apply plugin: 'spring-boot'
+
+dependencies {
+    compile project(":common")
+    compile project(":common-hateoas")
+    compile project(":common-swagger")
+
+    compile 'mysql:mysql-connector-java:5.1.36'
+
+    compile("org.springframework.boot:spring-boot-starter-data-jpa:$springBootVersion")
+    compile("org.springframework.boot:spring-boot-starter-web:$springBootVersion")
+    compile "org.springframework.boot:spring-boot-starter-actuator:$springBootVersion"
+    compile("org.springframework.hateoas:spring-hateoas:$springHateoasVersion")
+
+    testCompile project(":test-utils")
+}
