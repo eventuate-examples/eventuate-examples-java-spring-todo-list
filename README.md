@@ -28,7 +28,7 @@ The following diagram shows the Todo List application architecture:
 
 The application consists of the following:
 
-* Todo List Server - a Java and Spring Boot-based server-side application that has a HATEAOS-style REST API for creating, updating and querying todo list items.
+* Todo List Server - a Java and Spring Boot-based server-side application that has a HATEOAS-style REST API for creating, updating and querying todo list items.
 * MySQL database - stores a materialized/denormalized view of todo list items.
 
 Note: for simplicity, the Todo List service is deployed as a monolithic server but as you will see below, it consists of several independent modules.
