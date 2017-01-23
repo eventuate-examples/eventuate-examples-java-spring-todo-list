@@ -1,7 +1,7 @@
-commandsideservice:
+todoservice:
   extends:
     file: docker-compose-common.yml
-    service: commandsideservice
+    service: todoservice
   links:
     - mysql
   environment:
@@ -9,10 +9,10 @@ commandsideservice:
     EVENTUATE_API_KEY_SECRET: ${EVENTUATE_API_KEY_SECRET}
     SPRING_DATASOURCE_URL: jdbc:mysql://mysql/eventuate
 
-querysideservice:
+todoviewservice:
   extends:
     file: docker-compose-common.yml
-    service: querysideservice
+    service: todoviewservice
   links:
     - mysql
   environment:

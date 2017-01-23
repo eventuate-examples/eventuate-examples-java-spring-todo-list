@@ -54,7 +54,7 @@ fi
 
 ${DOCKER_COMPOSE?} build
 
-${DOCKER_COMPOSE?} up -d commandsideservice querysideservice
+${DOCKER_COMPOSE?} up -d todoservice todoviewservice
 
 ./wait-for-services.sh $DOCKER_HOST_IP 8081 8082
 

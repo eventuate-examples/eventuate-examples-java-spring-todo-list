@@ -1,10 +1,10 @@
-commandsideservice:
+todoservice:
   build: ./todo-service/
   restart: unless-stopped
   ports:
     - "8081:8080"
 
-querysideservice:
+todoviewservice:
   build: ./todo-view-service/
   restart: unless-stopped
   ports:
