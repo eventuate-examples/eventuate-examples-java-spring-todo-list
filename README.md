@@ -30,7 +30,7 @@ The following diagram shows the Todo List application architecture:
 
 The application consists of the following:
 
-* Todo service - a Java and Spring Boot-based service that has a HATEAOS-style REST API for creating, updating and querying todo list items.
+* Todo service - a Java and Spring Boot-based service that has a HATEOAS-style REST API for creating, updating and querying todo list items.
 It uses Eventuate to persist aggregates using event sourcing.
 * Todo view service - a Java and Spring Boot-based service that provides a REST API for querying todos.
 It implements a [Command Query Responsibility Segregation (CQRS)](http://microservices.io/patterns/data/cqrs.html) view of todos using MySQL.
