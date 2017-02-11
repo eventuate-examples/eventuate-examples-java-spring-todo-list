@@ -106,6 +106,11 @@ If you are running the `single-module` version:
 
 * `http://${DOCKER_HOST_IP}:8080/swagger-ui.html` - the monolithic application
 
+# Using the Eventuate Local console
+
+You can also use the Eventuate Local console to view aggregates and watch the stream of events.
+Visit the URL `http://${DOCKER_HOST_IP}:8085`
+
 # Got questions?
 
 Don't hesitate to create an issue or see
