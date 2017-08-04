@@ -23,10 +23,12 @@ jobs:
     steps:
       - checkout
 
+      - setup_remote_docker
+
       # Download and cache dependencies
       - restore_cache:
           keys:
-          - v1-dependencies-{{ checksum "build.gradle" }}
+          - v1-dependencies-{{ checksum "single-module/build.gradle" }}
           # fallback to using the latest cache if no exact match is found
           - v1-dependencies-
 
@@ -36,7 +38,7 @@ jobs:
           paths:
             - ~/.m2
             - ~/.gradle
-          key: v1-dependencies-{{ checksum "build.gradle" }}
+          key: v1-dependencies-{{ checksum "single-module/build.gradle" }}
 
       # run tests!
       - run: cd single-module && ./gradlew build
