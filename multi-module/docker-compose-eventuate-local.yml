@@ -1,5 +1,5 @@
 zookeeper:
-  image: eventuateio/eventuateio-local-zookeeper:0.12.1
+  image: eventuateio/eventuateio-local-zookeeper:0.15.0
   ports:
     - 2181:2181
     - 2888:2888
@@ -7,7 +7,7 @@ zookeeper:
 
 
 kafka:
-  image: eventuateio/eventuateio-local-kafka:0.12.1
+  image: eventuateio/eventuateio-local-kafka:0.15.0
   ports:
     - 9092:9092
   links:
@@ -18,7 +18,7 @@ kafka:
     - ZOOKEEPER_SERVERS=zookeeper:2181
 
 cdcservice:
-  image: eventuateio/eventuateio-local-cdc-service:0.12.1
+  image: eventuateio/eventuateio-local-cdc-service:0.15.0
   ports:
     - "8099:8080"
   links:
@@ -82,7 +82,7 @@ querysideservice:
     EVENTUATELOCAL_CDC_DB_PASSWORD: rootpassword
 
 consoleserver:
-  image: eventuateio/eventuateio-local-console:0.12.1
+  image: eventuateio/eventuateio-local-console:0.15.0
   links:
     - mysql
     - zookeeper

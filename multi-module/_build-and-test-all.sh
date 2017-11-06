@@ -56,7 +56,7 @@ ${DOCKER_COMPOSE?} build
 
 ${DOCKER_COMPOSE?} up -d commandsideservice querysideservice
 
-./wait-for-services.sh $DOCKER_HOST_IP 8081 8082
+./wait-for-services.sh $DOCKER_HOST_IP 8081 8082 $EXTRA_PORTS_TO_WAIT_FOR
 
 ./gradlew $BUILD_AND_TEST_ALL_EXTRA_GRADLE_ARGS --offline $* -P ignoreE2EFailures=false :e2etest:cleanTest :e2etest:test
 
