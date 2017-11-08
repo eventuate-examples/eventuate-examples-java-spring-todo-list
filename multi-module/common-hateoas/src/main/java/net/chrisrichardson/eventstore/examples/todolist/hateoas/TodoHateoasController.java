@@ -14,9 +14,6 @@ import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 
-/**
- * Created by popikyardo on 23.03.16.
- */
 @RestController
 @RequestMapping(value = "/todos")
 public class TodoHateoasController extends BaseController {

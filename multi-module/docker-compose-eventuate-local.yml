@@ -45,10 +45,10 @@ mysql:
     - MYSQL_PASSWORD=mysqlpw
 
 
-commandsideservice:
+todoservice:
   extends:
     file: docker-compose-common.yml
-    service: commandsideservice
+    service: todoservice
   links:
     - mysql
     - kafka
@@ -63,10 +63,10 @@ commandsideservice:
     EVENTUATELOCAL_CDC_DB_USER_NAME: root
     EVENTUATELOCAL_CDC_DB_PASSWORD: rootpassword
 
-querysideservice:
+todoviewservice:
   extends:
     file: docker-compose-common.yml
-    service: querysideservice
+    service: todoviewservice
   links:
     - mysql
     - kafka
