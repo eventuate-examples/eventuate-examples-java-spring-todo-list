@@ -1,7 +1,7 @@
 package net.chrisrichardson.eventstore.examples.todolist.queryside.web;
 
 import net.chrisrichardson.eventstore.examples.todolist.queryside.backend.TodoViewBackendConfiguration;
-import org.springframework.boot.context.embedded.ServletListenerRegistrationBean;
+import org.springframework.boot.web.servlet.ServletListenerRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;

@@ -10,7 +10,7 @@ import net.chrisrichardson.eventstore.examples.todolist.backend.domain.TodoComma
 import net.chrisrichardson.eventstore.examples.todolist.backend.domain.TodoService;
 import net.chrisrichardson.eventstore.examples.todolist.web.TodoWebConfiguration;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
-import org.springframework.boot.orm.jpa.EntityScan;
+import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;

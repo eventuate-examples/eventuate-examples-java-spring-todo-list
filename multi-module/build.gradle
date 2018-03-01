@@ -1,5 +1,8 @@
 buildscript {
     repositories {
+        maven {
+            url "http://repo.spring.io/milestone/"
+        }
         mavenCentral()
     }
     dependencies {
@@ -8,7 +11,7 @@ buildscript {
 }
 
 task wrapper(type: Wrapper) {
-    gradleVersion = '2.0'
+    gradleVersion = '4.4'
 }
 
 subprojects {
@@ -17,6 +20,9 @@ subprojects {
     targetCompatibility = 1.8
 
     repositories {
+        maven {
+            url "http://repo.spring.io/milestone/"
+        }
         mavenCentral()
         jcenter()
         eventuateMavenRepoUrl.split(',').each { repoUrl -> maven { url repoUrl } }

@@ -25,7 +25,9 @@ postgres:
     POSTGRES_PASSWORD: eventuate
 
 cdcservice:
-  image: eventuateio/eventuateio-local-cdc-service:0.15.0
+  image: eventuateio/eventuateio-local-cdc-service:0.17.0.RELEASE
+  ports:
+    - "8099:8080"
   links:
     - postgres
     - kafka

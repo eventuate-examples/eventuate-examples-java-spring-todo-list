@@ -6,7 +6,7 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.IntegrationTest;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
@@ -22,7 +22,6 @@ import static net.chrisrichardson.eventstore.examples.todolist.testutil.TestUtil
 
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@IntegrationTest({"server.port=0"})
 public abstract class AbstractTodoRestAPITest {
 
     protected int port;

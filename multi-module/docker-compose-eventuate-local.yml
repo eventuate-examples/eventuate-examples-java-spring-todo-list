@@ -18,7 +18,7 @@ kafka:
     - ZOOKEEPER_SERVERS=zookeeper:2181
 
 cdcservice:
-  image: eventuateio/eventuateio-local-cdc-service:0.15.0
+  image: eventuateio/eventuateio-local-cdc-service:0.17.0.RELEASE
   ports:
     - "8099:8080"
   links:

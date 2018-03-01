@@ -1,8 +1,8 @@
 apply plugin: 'java'
 
 dependencies {
-    testCompile project(":todo-service")
-    testCompile project(":todo-view-service")
+    testCompile project(":todo-service-common")
+    testCompile project(":todo-view-service-common")
 
     testCompile project(":test-utils")
     testCompile "junit:junit:4.11"
