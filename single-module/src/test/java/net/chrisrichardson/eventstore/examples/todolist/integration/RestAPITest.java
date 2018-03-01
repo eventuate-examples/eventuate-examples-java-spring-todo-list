@@ -2,12 +2,10 @@ package net.chrisrichardson.eventstore.examples.todolist.integration;
 
 import net.chrisrichardson.eventstore.examples.todolist.AbstractTodoRestAPITest;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.test.SpringApplicationConfiguration;
-import org.springframework.test.context.web.WebAppConfiguration;
+import org.springframework.boot.test.context.SpringBootTest;
 
 
-@SpringApplicationConfiguration(classes = {RestAPITestConfiguration.class})
-@WebAppConfiguration
+@SpringBootTest(classes = {RestAPITestConfiguration.class}, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class RestAPITest extends AbstractTodoRestAPITest {
     @Value("${local.server.port}")
     private int port;
