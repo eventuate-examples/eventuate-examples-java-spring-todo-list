@@ -5,7 +5,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 
 
-@SpringBootTest(classes = {E2ETestConfiguration.class})
+@SpringBootTest(classes = E2ETestConfiguration.class, webEnvironment = SpringBootTest.WebEnvironment.NONE)
 public class EndToEndTest extends AbstractTodoRestAPITest {
 
     @Value("#{systemEnvironment['DOCKER_HOST_IP']}")
