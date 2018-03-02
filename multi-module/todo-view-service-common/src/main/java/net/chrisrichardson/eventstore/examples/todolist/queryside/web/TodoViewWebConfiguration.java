@@ -14,7 +14,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 @ComponentScan({"net.chrisrichardson.eventstore.examples.todolist.common",
         "net.chrisrichardson.eventstore.examples.todolist.hateoas",
         "net.chrisrichardson.eventstore.examples.todolist.queryside.web"})
-public class TodoViewWebConfiguration extends WebMvcConfigurerAdapter {
+public class TodoViewWebConfiguration {
 
     @Bean
     public ServletListenerRegistrationBean<RequestContextListener> httpRequestContextListener() {

@@ -12,7 +12,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 
 @Configuration
 @ComponentScan("net.chrisrichardson.eventstore.examples.todolist.web")
-public class TodoWebConfiguration extends WebMvcConfigurerAdapter {
+public class TodoWebConfiguration {
 
     @Bean
     public ServletListenerRegistrationBean<RequestContextListener> httpRequestContextListener() {
