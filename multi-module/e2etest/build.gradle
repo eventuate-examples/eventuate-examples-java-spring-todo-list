@@ -6,7 +6,7 @@ dependencies {
 
     testCompile "org.apache.httpcomponents:httpclient:4.5"
     testCompile project(":test-utils")
-    testCompile "junit:junit:4.11"
+    testCompile "junit:junit:4.12"
     testCompile "org.springframework.boot:spring-boot-starter-test:$springBootVersion"
 }
 

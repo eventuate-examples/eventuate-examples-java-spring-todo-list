@@ -4,7 +4,6 @@ include 'common-swagger'
 include 'todo-service'
 include 'todo-view-service'
 include 'test-utils'
-include 'rest-api-integration-tests'
 include 'e2etest'
 
 rootProject.name = 'eventuate-examples-java-spring-todo-list-multi-module'

@@ -8,7 +8,7 @@ buildscript {
 }
 
 task wrapper(type: Wrapper) {
-    gradleVersion = '2.0'
+    gradleVersion = '3.5'
 }
 
 apply plugin: 'java'
@@ -45,7 +45,7 @@ dependencies {
     compile "io.springfox:springfox-swagger2:2.2.2"
     compile 'io.springfox:springfox-swagger-ui:2.2.2'
 
-    testCompile "junit:junit:4.11"
+    testCompile "junit:junit:4.12"
     testCompile "org.springframework.boot:spring-boot-starter-test:$springBootVersion"
     testCompile "io.eventuate.client.java:eventuate-client-java-jdbc:$eventuateClientVersion"
 }
