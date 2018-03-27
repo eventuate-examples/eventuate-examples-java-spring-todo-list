@@ -9,6 +9,7 @@ import net.chrisrichardson.eventstore.examples.todolist.model.Todo;
 
 import javax.persistence.EntityNotFoundException;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.concurrent.CompletableFuture;
 
 
@@ -27,11 +28,10 @@ public class TodoViewServiceImpl implements TodoUpdateService {
 
     @Override
     public CompletableFuture<Todo> findById(String todoId) {
-        Todo res = repository.findOne(todoId);
-        if (res != null) {
-            return CompletableFuture.completedFuture(res);
-        }
-        return CompletableFutureUtil.failedFuture(new EntityNotFoundException("No todo found for given id"));
+        return repository
+                .findById(todoId)
+                .map(CompletableFuture::completedFuture)
+                .orElse(CompletableFutureUtil.failedFuture(new NoSuchElementException("No todo with given id found")));
     }
 
 }

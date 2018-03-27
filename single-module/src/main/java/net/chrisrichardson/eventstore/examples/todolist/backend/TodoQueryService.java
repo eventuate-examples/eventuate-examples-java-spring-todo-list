@@ -25,7 +25,7 @@ public class TodoQueryService {
     }
 
     public void remove(String id) {
-        repository.delete(id);
+        repository.deleteById(id);
     }
 
     public void removeAll() {
@@ -33,12 +33,9 @@ public class TodoQueryService {
     }
 
     public CompletableFuture<Todo> findById(String todoId) {
-        Todo res = repository.findOne(todoId);
-        if (res != null) {
-            return CompletableFuture.completedFuture(res);
-        }
-        return CompletableFutureUtil.failedFuture(new NoSuchElementException("No todo with given id found"));
+      return repository
+              .findById(todoId)
+              .map(CompletableFuture::completedFuture)
+              .orElse(CompletableFutureUtil.failedFuture(new NoSuchElementException("No todo with given id found")));
     }
-
-
 }
