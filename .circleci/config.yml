@@ -30,7 +30,7 @@ jobs:
           paths:
             - ~/.m2
             - ~/.gradle
-          key: v1-dependencies-{{ checksum single-module/build.gradle" }}
+          key: v1-dependencies-{{ checksum "single-module/build.gradle" }}
 
       # run tests!
       - run: cd single-module && ./build-and-test-all.sh
