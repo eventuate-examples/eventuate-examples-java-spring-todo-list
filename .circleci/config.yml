@@ -33,9 +33,9 @@ jobs:
           key: v1-dependencies-{{ checksum "single-module/build.gradle" }}
 
       # run tests!
-      - run: cd single-module && ./build-and-test-all.sh
-      - run: cd single-module && ./build-and-test-all-eventuate-local.sh
-      - run: cd single-module && ./build-and-test-all-eventuate-local-postgres.sh
-      - run: cd multi-module && ./build-and-test-all.sh
-      - run: cd multi-module && ./build-and-test-all-eventuate-local.sh
-      - run: cd multi-module && ./build-and-test-all-eventuate-local-postgres.sh
+      - run: cd single-module && ./build-and-test-all-eventuate-local-mysql.sh
+      - run: cd single-module && ./build-and-test-all-eventuate-local-postgres-polling.sh
+      - run: cd single-module && ./build-and-test-all-eventuate-local-postgres-wal.sh
+      - run: cd multi-module && ./build-and-test-all-eventuate-local-mysql.sh
+      - run: cd multi-module && ./build-and-test-all-eventuate-local-postgres-polling.sh
+      - run: cd multi-module && ./build-and-test-all-eventuate-local-postgres-wal.sh
