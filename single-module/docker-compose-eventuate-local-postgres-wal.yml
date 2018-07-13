@@ -1,12 +1,12 @@
 zookeeper:
-  image: eventuateio/eventuateio-local-zookeeper:0.17.0.RELEASE
+  image: eventuateio/eventuateio-local-zookeeper:0.20.1.RELEASE
   ports:
     - 2181:2181
     - 2888:2888
     - 3888:3888
 
 kafka:
-  image: eventuateio/eventuateio-local-kafka:0.17.0.RELEASE
+  image: eventuateio/eventuateio-local-kafka:0.20.1.RELEASE
   ports:
     - 9092:9092
   links:
@@ -25,7 +25,7 @@ postgres:
     POSTGRES_PASSWORD: eventuate
 
 cdcservice:
-  image: eventuateio/eventuateio-local-cdc-service:0.17.0.RELEASE
+  image: eventuateio/eventuateio-local-new-cdc-service:0.20.1.RELEASE
   ports:
     - "8099:8080"
   links:
@@ -41,32 +41,14 @@ cdcservice:
     SPRING_DATASOURCE_DRIVER_CLASS_NAME: org.postgresql.Driver
     EVENTUATELOCAL_KAFKA_BOOTSTRAP_SERVERS: kafka:9092
     EVENTUATELOCAL_ZOOKEEPER_CONNECTION_STRING: zookeeper:2181
-    EVENTUATELOCAL_CDC_POLLING_INTERVAL_IN_MILLISECONDS: 500
-    EVENTUATELOCAL_CDC_MAX_EVENTS_PER_POLLING: 1000
-    EVENTUATELOCAL_CDC_MAX_ATTEMPTS_FOR_POLLING: 100
-    EVENTUATELOCAL_CDC_POLLING_RETRY_INTERVAL_IN_MILLISECONDS: 500
-    SPRING_PROFILES_ACTIVE: EventuatePolling
+    SPRING_PROFILES_ACTIVE: PostgresWal
 
-commandsideservice:
+standaloneservice:
   extends:
     file: docker-compose-common.yml
-    service: commandsideservice
-  links:
-    - postgres
-    - kafka
-    - zookeeper
-  environment:
-    SPRING_DATASOURCE_URL: jdbc:postgresql://postgres/eventuate
-    SPRING_DATASOURCE_USERNAME: eventuate
-    SPRING_DATASOURCE_PASSWORD: eventuate
-    SPRING_DATASOURCE_DRIVER_CLASS_NAME: org.postgresql.Driver
-    EVENTUATELOCAL_KAFKA_BOOTSTRAP_SERVERS: kafka:9092
-    EVENTUATELOCAL_ZOOKEEPER_CONNECTION_STRING: zookeeper:2181
-
-querysideservice:
-  extends:
-    file: docker-compose-common.yml
-    service: querysideservice
+    service: standaloneservice
+  volumes:
+    - ./build/libs:/app
   links:
     - postgres
     - kafka
