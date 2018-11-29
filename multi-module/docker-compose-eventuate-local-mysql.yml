@@ -1,96 +1,100 @@
-zookeeper:
-  image: eventuateio/eventuateio-local-zookeeper:0.22.1.RELEASE
-  ports:
-    - 2181:2181
-    - 2888:2888
-    - 3888:3888
+version: '3'
+services:
+  zookeeper:
+    image: eventuateio/eventuateio-local-zookeeper:0.22.1.RELEASE
+    ports:
+      - 2181:2181
+      - 2888:2888
+      - 3888:3888
 
 
-kafka:
-  image: eventuateio/eventuateio-local-kafka:0.22.1.RELEASE
-  ports:
-    - 9092:9092
-  links:
-    - zookeeper
-  environment:
-    - ADVERTISED_HOST_NAME=${DOCKER_HOST_IP}
-    - KAFKA_HEAP_OPTS=-Xmx320m -Xms320m
-    - ZOOKEEPER_SERVERS=zookeeper:2181
+  kafka:
+    image: eventuateio/eventuateio-local-kafka:0.22.1.RELEASE
+    ports:
+      - 9092:9092
+    depends_on:
+      - zookeeper
+    environment:
+      - ADVERTISED_HOST_NAME=${DOCKER_HOST_IP}
+      - KAFKA_HEAP_OPTS=-Xmx320m -Xms320m
+      - ZOOKEEPER_SERVERS=zookeeper:2181
 
-cdcservice:
-  image: eventuateio/eventuateio-local-new-cdc-service:0.22.1.RELEASE
-  ports:
-    - "8099:8080"
-  links:
-    - mysql
-    - kafka
-    - zookeeper
-  environment:
-    SPRING_DATASOURCE_URL: jdbc:mysql://mysql/eventuate
-    SPRING_DATASOURCE_USERNAME: mysqluser
-    SPRING_DATASOURCE_PASSWORD: mysqlpw
-    SPRING_DATASOURCE_DRIVER_CLASS_NAME: com.mysql.jdbc.Driver
-    EVENTUATELOCAL_KAFKA_BOOTSTRAP_SERVERS: kafka:9092
-    EVENTUATELOCAL_ZOOKEEPER_CONNECTION_STRING: zookeeper:2181
-    EVENTUATELOCAL_CDC_DB_USER_NAME: root
-    EVENTUATELOCAL_CDC_DB_PASSWORD: rootpassword
+  cdcservice:
+    image: eventuateio/eventuateio-local-new-cdc-service:0.22.1.RELEASE
+    ports:
+      - "8099:8080"
+    depends_on:
+      - mysql
+      - kafka
+      - zookeeper
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql/eventuate
+      SPRING_DATASOURCE_USERNAME: mysqluser
+      SPRING_DATASOURCE_PASSWORD: mysqlpw
+      SPRING_DATASOURCE_DRIVER_CLASS_NAME: com.mysql.jdbc.Driver
+      EVENTUATELOCAL_KAFKA_BOOTSTRAP_SERVERS: kafka:9092
+      EVENTUATELOCAL_ZOOKEEPER_CONNECTION_STRING: zookeeper:2181
+      EVENTUATELOCAL_CDC_DB_USER_NAME: root
+      EVENTUATELOCAL_CDC_DB_PASSWORD: rootpassword
 
-mysql:
-  build: ./mysql
-  ports:
-    - 3306:3306
-  environment:
-    - MYSQL_ROOT_PASSWORD=rootpassword
-    - MYSQL_USER=mysqluser
-    - MYSQL_PASSWORD=mysqlpw
+  mysql:
+    build: ./mysql
+    ports:
+      - 3306:3306
+    environment:
+      - MYSQL_ROOT_PASSWORD=rootpassword
+      - MYSQL_USER=mysqluser
+      - MYSQL_PASSWORD=mysqlpw
 
 
-commandsideservice:
-  extends:
-    file: docker-compose-common.yml
-    service: commandsideservice
-  links:
-    - mysql
-    - kafka
-    - zookeeper
-  environment:
-    SPRING_DATASOURCE_URL: jdbc:mysql://mysql/eventuate
-    SPRING_DATASOURCE_USERNAME: mysqluser
-    SPRING_DATASOURCE_PASSWORD: mysqlpw
-    SPRING_DATASOURCE_DRIVER_CLASS_NAME: com.mysql.jdbc.Driver
-    EVENTUATELOCAL_KAFKA_BOOTSTRAP_SERVERS: kafka:9092
-    EVENTUATELOCAL_ZOOKEEPER_CONNECTION_STRING: zookeeper:2181
-    EVENTUATELOCAL_CDC_DB_USER_NAME: root
-    EVENTUATELOCAL_CDC_DB_PASSWORD: rootpassword
+  commandsideservice:
+    build: ./todo-service/
+    restart: unless-stopped
+    ports:
+      - "8081:8080"
+    depends_on:
+      - mysql
+      - kafka
+      - zookeeper
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql/eventuate
+      SPRING_DATASOURCE_USERNAME: mysqluser
+      SPRING_DATASOURCE_PASSWORD: mysqlpw
+      SPRING_DATASOURCE_DRIVER_CLASS_NAME: com.mysql.jdbc.Driver
+      EVENTUATELOCAL_KAFKA_BOOTSTRAP_SERVERS: kafka:9092
+      EVENTUATELOCAL_ZOOKEEPER_CONNECTION_STRING: zookeeper:2181
+      EVENTUATELOCAL_CDC_DB_USER_NAME: root
+      EVENTUATELOCAL_CDC_DB_PASSWORD: rootpassword
 
-querysideservice:
-  extends:
-    file: docker-compose-common.yml
-    service: querysideservice
-  links:
-    - mysql
-    - kafka
-    - zookeeper
-  environment:
-    SPRING_DATASOURCE_URL: jdbc:mysql://mysql/eventuate
-    SPRING_DATASOURCE_USERNAME: mysqluser
-    SPRING_DATASOURCE_PASSWORD: mysqlpw
-    SPRING_DATASOURCE_DRIVER_CLASS_NAME: com.mysql.jdbc.Driver
-    EVENTUATELOCAL_KAFKA_BOOTSTRAP_SERVERS: kafka:9092
-    EVENTUATELOCAL_ZOOKEEPER_CONNECTION_STRING: zookeeper:2181
-    EVENTUATELOCAL_CDC_DB_USER_NAME: root
-    EVENTUATELOCAL_CDC_DB_PASSWORD: rootpassword
+  querysideservice:
+    build: ./todo-view-service/
+    restart: unless-stopped
+    ports:
+      - "8082:8080"
+    depends_on:
+      - mysql
+      - kafka
+      - zookeeper
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql/eventuate
+      SPRING_DATASOURCE_USERNAME: mysqluser
+      SPRING_DATASOURCE_PASSWORD: mysqlpw
+      SPRING_DATASOURCE_DRIVER_CLASS_NAME: com.mysql.jdbc.Driver
+      EVENTUATELOCAL_KAFKA_BOOTSTRAP_SERVERS: kafka:9092
+      EVENTUATELOCAL_ZOOKEEPER_CONNECTION_STRING: zookeeper:2181
+      EVENTUATELOCAL_CDC_DB_USER_NAME: root
+      EVENTUATELOCAL_CDC_DB_PASSWORD: rootpassword
 
-consoleserver:
-  image: eventuateio/eventuateio-local-console:0.15.0
-  links:
-    - mysql
-    - zookeeper
-  ports:
-    - "8085:8080"
-  environment:
-    SPRING_DATASOURCE_URL: jdbc:mysql://mysql/eventuate
-    SPRING_DATASOURCE_USERNAME: mysqluser
-    SPRING_DATASOURCE_PASSWORD: mysqlpw
-    EVENTUATELOCAL_ZOOKEEPER_CONNECTION_STRING: zookeeper:2181
-    DEBUG: kafka-node:*
+  consoleserver:
+    image: eventuateio/eventuateio-local-console:0.15.0
+    depends_on:
+      - mysql
+      - zookeeper
+    ports:
+      - "8085:8080"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql/eventuate
+      SPRING_DATASOURCE_USERNAME: mysqluser
+      SPRING_DATASOURCE_PASSWORD: mysqlpw
+      EVENTUATELOCAL_ZOOKEEPER_CONNECTION_STRING: zookeeper:2181
+      DEBUG: kafka-node:*
