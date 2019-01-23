@@ -1,5 +1,5 @@
 cdcservice:
-  image: eventuateio/eventuateio-local-new-cdc-service:0.30.0.M7
+  image: test-eventuate-local-java-new-cdc-mysql-service
   ports:
     - "8099:8080"
   links:
@@ -15,5 +15,6 @@ cdcservice:
     EVENTUATELOCAL_ZOOKEEPER_CONNECTION_STRING: zookeeper:2181
     EVENTUATELOCAL_CDC_DB_USER_NAME: root
     EVENTUATELOCAL_CDC_DB_PASSWORD: rootpassword
-    EVENTUATELOCAL_CDC_OLD_DEBEZIUM_DB_HISTORY_TOPIC_NAME: eventuate.local.cdc.my-sql-connector.offset.storage
+    EVENTUATELOCAL_CDC_OLD_DEBEZIUM_DB_OFFSET_STORAGE_TOPIC_NAME: eventuate.local.cdc.my-sql-connector.offset.storage
+    EVENTUATELOCAL_CDC_MY_SQL_BIN_LOG_CLIENT_NAME: MySqlBinlog
     EVENTUATELOCAL_CDC_BINLOG_CLIENT_ID: 1

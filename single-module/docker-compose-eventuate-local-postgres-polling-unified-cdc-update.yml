@@ -1,5 +1,5 @@
 cdcservice:
-  image: eventuateio/eventuateio-local-new-cdc-service:0.30.0.M7
+  image: test-eventuate-local-java-new-cdc-mysql-service
   ports:
     - "8099:8080"
   links:
@@ -19,6 +19,6 @@ cdcservice:
     EVENTUATELOCAL_CDC_MAX_EVENTS_PER_POLLING: 1000
     EVENTUATELOCAL_CDC_MAX_ATTEMPTS_FOR_POLLING: 100
     EVENTUATELOCAL_CDC_POLLING_RETRY_INTERVAL_IN_MILLISECONDS: 500
-    EVENTUATELOCAL_CDC_OLD_DEBEZIUM_DB_HISTORY_TOPIC_NAME: none
+    EVENTUATELOCAL_CDC_OLD_DEBEZIUM_DB_OFFSET_STORAGE_TOPIC_NAME: none
     EVENTUATELOCAL_CDC_BINLOG_CLIENT_ID: 1
     SPRING_PROFILES_ACTIVE: EventuatePolling
