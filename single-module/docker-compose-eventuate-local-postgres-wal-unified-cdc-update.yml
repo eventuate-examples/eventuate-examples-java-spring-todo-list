@@ -1,5 +1,5 @@
 cdcservice:
-  image: eventuateio/eventuateio-local-new-cdc-service:0.30.0.M10
+  image: eventuateio/eventuateio-local-cdc-service:0.30.1.RELEASE
   ports:
     - "8099:8080"
   links:
@@ -15,6 +15,5 @@ cdcservice:
     SPRING_DATASOURCE_DRIVER_CLASS_NAME: org.postgresql.Driver
     EVENTUATELOCAL_KAFKA_BOOTSTRAP_SERVERS: kafka:9092
     EVENTUATELOCAL_ZOOKEEPER_CONNECTION_STRING: zookeeper:2181
-    EVENTUATELOCAL_CDC_OLD_DEBEZIUM_DB_OFFSET_STORAGE_TOPIC_NAME: none
-    EVENTUATELOCAL_CDC_BINLOG_CLIENT_ID: 1
     SPRING_PROFILES_ACTIVE: PostgresWal
+    EVENTUATELOCAL_CDC_READER_NAME: PostgresWalReader

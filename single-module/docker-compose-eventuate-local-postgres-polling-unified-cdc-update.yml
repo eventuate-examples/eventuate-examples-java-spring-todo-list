@@ -1,5 +1,5 @@
 cdcservice:
-  image: eventuateio/eventuateio-local-new-cdc-service:0.30.0.M10
+  image: eventuateio/eventuateio-local-cdc-service:0.30.1.RELEASE
   ports:
     - "8099:8080"
   links:
@@ -19,6 +19,5 @@ cdcservice:
     EVENTUATELOCAL_CDC_MAX_EVENTS_PER_POLLING: 1000
     EVENTUATELOCAL_CDC_MAX_ATTEMPTS_FOR_POLLING: 100
     EVENTUATELOCAL_CDC_POLLING_RETRY_INTERVAL_IN_MILLISECONDS: 500
-    EVENTUATELOCAL_CDC_OLD_DEBEZIUM_DB_OFFSET_STORAGE_TOPIC_NAME: none
-    EVENTUATELOCAL_CDC_BINLOG_CLIENT_ID: 1
     SPRING_PROFILES_ACTIVE: EventuatePolling
+    EVENTUATELOCAL_CDC_READER_NAME: PostgresPollingReader
