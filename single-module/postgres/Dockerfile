@@ -1,2 +1,2 @@
-FROM eventuateio/eventuateio-local-postgres:0.30.2.RELEASE
+FROM eventuateio/eventuate-postgres:0.7.0.RELEASE
 COPY schema-postgres.sql /docker-entrypoint-initdb.d

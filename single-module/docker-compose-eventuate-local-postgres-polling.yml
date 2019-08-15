@@ -1,14 +1,14 @@
 version: '3'
 services:
   zookeeper:
-    image: eventuateio/eventuateio-local-zookeeper:0.30.2.RELEASE
+    image: eventuateio/eventuate-zookeeper:0.4.0.RELEASE
     ports:
       - 2181:2181
       - 2888:2888
       - 3888:3888
 
   kafka:
-    image: eventuateio/eventuateio-local-kafka:0.30.2.RELEASE
+    image: eventuateio/eventuate-kafka:0.3.0.RELEASE
     ports:
       - 9092:9092
     depends_on:
@@ -27,7 +27,7 @@ services:
       POSTGRES_PASSWORD: eventuate
 
   cdcservice:
-    image: eventuateio/eventuateio-local-cdc-service:0.30.2.RELEASE
+    image: eventuateio/eventuate-cdc-service:0.4.0.RELEASE
     ports:
       - "8099:8080"
     depends_on:
@@ -49,6 +49,7 @@ services:
       EVENTUATELOCAL_CDC_POLLING_RETRY_INTERVAL_IN_MILLISECONDS: 500
       SPRING_PROFILES_ACTIVE: EventuatePolling
       EVENTUATELOCAL_CDC_READER_NAME: PostgresPollingReader
+      EVENTUATE_CDC_TYPE: EventuateLocal
 
   standaloneservice:
     build: ./
