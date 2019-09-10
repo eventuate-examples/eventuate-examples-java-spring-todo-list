@@ -85,6 +85,7 @@ Next, launch the services using [Docker Compose](https://docs.docker.com/compose
 ```
 export DOCKER_HOST_IP=...
 ./gradlew <database-mode>ComposeBuild
+./gradlew <database-mode>ComposeUp
 ```
 
 Where `database-mode` is one of:
