@@ -2,6 +2,8 @@
 
 set -e
 
+docker="./gradlew ${database}${mode}Compose"
+
 if [ -z "$DOCKER_HOST_IP" ] ; then
   if [ -z "$DOCKER_HOST" ] ; then
     export DOCKER_HOST_IP=`hostname`
@@ -16,7 +18,7 @@ fi
 if [ "$1" = "--use-existing" ] ; then
   shift;
 else
-  ./gradlew ${database}${mode}ComposeDown
+  ${docker}Down
 fi
 
 
@@ -41,13 +43,13 @@ fi
 
 ./gradlew $BUILD_AND_TEST_ALL_EXTRA_GRADLE_ARGS --offline $* cleanTest
 
-./gradlew ${database}${mode}ComposeBuild
-./gradlew ${database}${mode}ComposeUp
+${docker}Build
+${docker}Up
 
 ./wait-for-services.sh $DOCKER_HOST_IP 8080
 
 ./gradlew $BUILD_AND_TEST_ALL_EXTRA_GRADLE_ARGS --offline $* e2eTest
 
 if [ $NO_RM = false ] ; then
-  ./gradlew ${database}${mode}ComposeDown
+  ${docker}Down
 fi

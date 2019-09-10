@@ -84,9 +84,14 @@ Next, launch the services using [Docker Compose](https://docs.docker.com/compose
 
 ```
 export DOCKER_HOST_IP=...
-docker-compose -f docker-compose-eventuate-local.yml build
-docker-compose -f docker-compose-eventuate-local.yml up -d
+./gradlew <database-mode>ComposeBuild
 ```
+
+Where `database-mode` is one of:
+
+* `mysqlbinlog` - use MySQL with Binlog-based event publishing
+* `postgreswal` - use Postgres with Postgres WAL-based event publishing
+* `postgrespolling` - use Postgres with generic JDBC polling-based event publishing
 
 Note: You need to set `DOCKER_HOST_IP` before running Docker Compose.
 This must be an IP address or resolvable hostname.
