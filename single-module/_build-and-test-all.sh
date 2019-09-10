@@ -13,19 +13,10 @@ if [ -z "$DOCKER_HOST_IP" ] ; then
   echo set DOCKER_HOST_IP $DOCKER_HOST_IP
 fi
 
-DOCKER_COMPOSE="docker-compose -p java-spring-todo-list"
-
-while [ "$1" = "-f" ] ; do
-  shift;
-  DOCKER_COMPOSE="$DOCKER_COMPOSE -f ${1?}"
-  shift
-done
-
 if [ "$1" = "--use-existing" ] ; then
   shift;
 else
-  ${DOCKER_COMPOSE?} stop
-  ${DOCKER_COMPOSE?} rm -v --force
+  ./gradlew ${database}${mode}ComposeDown
 fi
 
 
@@ -36,7 +27,10 @@ if [ "$1" = "--no-rm" ] ; then
   shift
 fi
 
-${DOCKER_COMPOSE?} up -d mysql $EXTRA_INFRASTRUCTURE_SERVICES
+if [ ! -z "$EXTRA_INFRASTRUCTURE_SERVICES" ]; then
+    ./gradlew ${EXTRA_INFRASTRUCTURE_SERVICES}ComposeBuild
+    ./gradlew ${EXTRA_INFRASTRUCTURE_SERVICES}ComposeUp
+fi
 
 ./gradlew $BUILD_AND_TEST_ALL_EXTRA_GRADLE_ARGS $* build
 
@@ -47,15 +41,13 @@ fi
 
 ./gradlew $BUILD_AND_TEST_ALL_EXTRA_GRADLE_ARGS --offline $* cleanTest
 
-${DOCKER_COMPOSE?} build
-
-${DOCKER_COMPOSE?} up -d standaloneservice
+./gradlew ${database}${mode}ComposeBuild
+./gradlew ${database}${mode}ComposeUp
 
 ./wait-for-services.sh $DOCKER_HOST_IP 8080
 
 ./gradlew $BUILD_AND_TEST_ALL_EXTRA_GRADLE_ARGS --offline $* e2eTest
 
 if [ $NO_RM = false ] ; then
-  ${DOCKER_COMPOSE?} stop
-  ${DOCKER_COMPOSE?} rm -v --force
+  ./gradlew ${database}${mode}ComposeDown
 fi
