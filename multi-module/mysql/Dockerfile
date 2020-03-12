@@ -1,2 +1,3 @@
-FROM eventuateio/eventuate-mysql:0.7.0.RELEASE
+ARG EVENTUATE_COMMON_VERSION
+FROM eventuateio/eventuate-mysql:$EVENTUATE_COMMON_VERSION
 COPY schema-mysql.sql /docker-entrypoint-initdb.d

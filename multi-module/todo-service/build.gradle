@@ -1,5 +1,4 @@
 apply plugin: VerifyEventStoreEnvironmentPlugin
-apply plugin: EventuateDependencyPlugin
 
 apply plugin: 'spring-boot'
 
@@ -7,6 +6,8 @@ dependencies {
     compile project(":common")
     compile project(":common-hateoas")
     compile project(":common-swagger")
+
+    compile "io.eventuate.local.java:eventuate-local-java-spring-jdbc:$eventuateLocalVersion"
 
     compile 'mysql:mysql-connector-java:5.1.36'
 

@@ -1,6 +1,6 @@
 package net.chrisrichardson.eventstore.examples.todolist.queryside;
 
-import io.eventuate.javaclient.driver.EventuateDriverConfiguration;
+import io.eventuate.local.java.spring.javaclient.driver.EventuateDriverConfiguration;
 import net.chrisrichardson.eventstore.examples.todolist.commonswagger.CommonSwaggerConfiguration;
 import net.chrisrichardson.eventstore.examples.todolist.queryside.web.TodoViewWebConfiguration;
 import org.springframework.boot.SpringApplication;

@@ -53,24 +53,6 @@ You just need to have Java 8 installed.
 # Building and running the application
 
 The steps for building both versions of the application are identical.
-However, the details of how to build and run the services depend slightly on whether you are using Eventuate SaaS or Eventuate Local.
-
-## Building and running using Eventuate SaaS
-
-First, must [sign up to get your credentials](https://signup.eventuate.io/) in order to get free access to the SaaS version.
-
-Next, build the application
-
-```
-./gradlew assemble
-```
-
-Next, you can launch the services using [Docker Compose](https://docs.docker.com/compose/):
-
-```
-docker-compose build
-docker-compose up -d
-```
 
 ## Building and running using Eventuate Local
 
@@ -84,9 +66,15 @@ Next, launch the services using [Docker Compose](https://docs.docker.com/compose
 
 ```
 export DOCKER_HOST_IP=...
-docker-compose -f docker-compose-eventuate-local.yml build
-docker-compose -f docker-compose-eventuate-local.yml up -d
+./gradlew <database-mode>ComposeBuild
+./gradlew <database-mode>ComposeUp
 ```
+
+Where `database-mode` is one of:
+
+* `mysqlbinlog` - use MySQL with Binlog-based event publishing
+* `postgreswal` - use Postgres with Postgres WAL-based event publishing
+* `postgrespolling` - use Postgres with generic JDBC polling-based event publishing
 
 Note: You need to set `DOCKER_HOST_IP` before running Docker Compose.
 This must be an IP address or resolvable hostname.

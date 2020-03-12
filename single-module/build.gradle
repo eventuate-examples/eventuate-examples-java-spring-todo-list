@@ -1,9 +1,11 @@
 buildscript {
     repositories {
         mavenCentral()
+        jcenter()
     }
     dependencies {
         classpath("org.springframework.boot:spring-boot-gradle-plugin:$springBootVersion")
+        classpath "com.avast.gradle:gradle-docker-compose-plugin:0.9.2"
     }
 }
 
@@ -15,7 +17,7 @@ apply plugin: 'java'
 apply plugin: 'spring-boot'
 
 apply plugin: VerifyEventStoreEnvironmentPlugin
-apply plugin: EventuateDependencyPlugin
+apply plugin: 'docker-compose'
 
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
@@ -28,6 +30,7 @@ repositories {
 
 dependencies {
     compile "io.eventuate.client.java:eventuate-client-java-spring:$eventuateClientVersion"
+    compile "io.eventuate.local.java:eventuate-local-java-spring-jdbc:$eventuateLocalVersion"
 
     compile 'mysql:mysql-connector-java:5.1.36'
     compile('org.postgresql:postgresql:9.4-1200-jdbc41') {
@@ -47,7 +50,7 @@ dependencies {
 
     testCompile "junit:junit:4.12"
     testCompile "org.springframework.boot:spring-boot-starter-test:$springBootVersion"
-    testCompile "io.eventuate.client.java:eventuate-client-java-jdbc:$eventuateClientVersion"
+    testCompile "io.eventuate.client.java:eventuate-client-java-spring-jdbc:$eventuateClientVersion"
 }
 
 test {
@@ -57,5 +60,44 @@ test {
 task e2eTest(type: Test) {
     filter {
         includeTestsMatching "net.chrisrichardson.eventstore.examples.todolist.e2etests.*"
+    }
+}
+
+dockerCompose {
+    environment.put "EVENTUATE_COMMON_VERSION", eventuateCommonImageVersion
+    environment.put "EVENTUATE_KAFKA_VERSION", eventuateMessagingKafkaImageVersion
+    environment.put "EVENTUATE_CDC_VERSION", eventuateCdcImageVersion
+
+    mysqlbinlog {
+        projectName = null
+        useComposeFiles = ["docker-compose-eventuate-local-mysql.yml"]
+    }
+
+    mysqlbinlogcdc {
+        projectName = null
+        useComposeFiles = ["docker-compose-eventuate-local-mysql.yml"]
+        startedServices = ["cdcservice"]
+    }
+
+    postgrespolling {
+        projectName = null
+        useComposeFiles = ["docker-compose-eventuate-local-postgres-polling.yml"]
+    }
+
+    postgrespollingcdc {
+        projectName = null
+        useComposeFiles = ["docker-compose-eventuate-local-postgres-polling.yml"]
+        startedServices = ["cdcservice"]
+    }
+
+    postgreswal {
+        projectName = null
+        useComposeFiles = ["docker-compose-eventuate-local-postgres-wal.yml"]
+    }
+
+    postgreswalcdc {
+        projectName = null
+        useComposeFiles = ["docker-compose-eventuate-local-postgres-wal.yml"]
+        startedServices = ["cdcservice"]
     }
 }
