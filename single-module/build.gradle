@@ -17,7 +17,6 @@ apply plugin: 'java'
 apply plugin: 'spring-boot'
 
 apply plugin: VerifyEventStoreEnvironmentPlugin
-apply plugin: EventuateDependencyPlugin
 apply plugin: 'docker-compose'
 
 sourceCompatibility = 1.8
@@ -31,6 +30,7 @@ repositories {
 
 dependencies {
     compile "io.eventuate.client.java:eventuate-client-java-spring:$eventuateClientVersion"
+    compile "io.eventuate.local.java:eventuate-local-java-spring-jdbc:$eventuateLocalVersion"
 
     compile 'mysql:mysql-connector-java:5.1.36'
     compile('org.postgresql:postgresql:9.4-1200-jdbc41') {
@@ -50,7 +50,7 @@ dependencies {
 
     testCompile "junit:junit:4.12"
     testCompile "org.springframework.boot:spring-boot-starter-test:$springBootVersion"
-    testCompile "io.eventuate.client.java:eventuate-client-java-jdbc:$eventuateClientVersion"
+    testCompile "io.eventuate.client.java:eventuate-client-java-spring-jdbc:$eventuateClientVersion"
 }
 
 test {

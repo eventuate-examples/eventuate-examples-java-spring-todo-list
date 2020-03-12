@@ -36,11 +36,6 @@ fi
 
 ./gradlew $BUILD_AND_TEST_ALL_EXTRA_GRADLE_ARGS $* build
 
-if [ -z "$EVENTUATE_LOCAL" ] && [ -z "$EVENTUATE_API_KEY_ID" -o -z "$EVENTUATE_API_KEY_SECRET" ] ; then
-  echo You must set EVENTUATE_API_KEY_ID and  EVENTUATE_API_KEY_SECRET
-  exit -1
-fi
-
 ./gradlew $BUILD_AND_TEST_ALL_EXTRA_GRADLE_ARGS --offline $* cleanTest
 
 ${docker}Build

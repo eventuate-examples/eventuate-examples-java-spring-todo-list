@@ -53,24 +53,6 @@ You just need to have Java 8 installed.
 # Building and running the application
 
 The steps for building both versions of the application are identical.
-However, the details of how to build and run the services depend slightly on whether you are using Eventuate SaaS or Eventuate Local.
-
-## Building and running using Eventuate SaaS
-
-First, must [sign up to get your credentials](https://signup.eventuate.io/) in order to get free access to the SaaS version.
-
-Next, build the application
-
-```
-./gradlew assemble
-```
-
-Next, you can launch the services using [Docker Compose](https://docs.docker.com/compose/):
-
-```
-docker-compose build
-docker-compose up -d
-```
 
 ## Building and running using Eventuate Local
 
