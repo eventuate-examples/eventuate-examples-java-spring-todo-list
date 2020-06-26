@@ -39,8 +39,6 @@ services:
       SPRING_DATASOURCE_URL: jdbc:postgresql://postgres/eventuate
       SPRING_DATASOURCE_USERNAME: eventuate
       SPRING_DATASOURCE_PASSWORD: eventuate
-      SPRING_DATASOURCE_TEST_ON_BORROW: "true"
-      SPRING_DATASOURCE_VALIDATION_QUERY: SELECT 1
       SPRING_DATASOURCE_DRIVER_CLASS_NAME: org.postgresql.Driver
       EVENTUATELOCAL_KAFKA_BOOTSTRAP_SERVERS: kafka:9092
       EVENTUATELOCAL_ZOOKEEPER_CONNECTION_STRING: zookeeper:2181
@@ -65,7 +63,6 @@ services:
       SPRING_DATASOURCE_PASSWORD: eventuate
       SPRING_DATASOURCE_DRIVER_CLASS_NAME: org.postgresql.Driver
       EVENTUATELOCAL_KAFKA_BOOTSTRAP_SERVERS: kafka:9092
-      EVENTUATELOCAL_ZOOKEEPER_CONNECTION_STRING: zookeeper:2181
 
   consoleserver:
     image: eventuateio/eventuateio-local-console:0.15.0
