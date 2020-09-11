@@ -1,7 +1,5 @@
 package net.chrisrichardson.eventstore.examples.todolist.todoservice.backend;
 
-
-
 import io.eventuate.CompletableFutureUtil;
 import net.chrisrichardson.eventstore.examples.todolist.hateoas.TodoUpdateService;
 import net.chrisrichardson.eventstore.examples.todolist.TodoRepository;
@@ -27,11 +25,10 @@ public class TodoViewServiceImpl implements TodoUpdateService {
 
     @Override
     public CompletableFuture<Todo> findById(String todoId) {
-        Todo res = repository.findOne(todoId);
-        if (res != null) {
-            return CompletableFuture.completedFuture(res);
-        }
-        return CompletableFutureUtil.failedFuture(new EntityNotFoundException("No todo found for given id"));
+        return repository
+                .findById(todoId)
+                .map(CompletableFuture::completedFuture)
+                .orElse(CompletableFutureUtil.failedFuture(new EntityNotFoundException("No todo found for given id")));
     }
 
 }

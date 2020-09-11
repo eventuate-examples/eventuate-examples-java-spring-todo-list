@@ -23,6 +23,7 @@ jobs:
           # fallback to using the latest cache if no exact match is found
           - v1-dependencies-
 
+      - run: ./.circleci/upgrade-docker-compose.sh
       - run: cd single-module && ./gradlew dependencies
       - run: cd multi-module && ./gradlew dependencies
 

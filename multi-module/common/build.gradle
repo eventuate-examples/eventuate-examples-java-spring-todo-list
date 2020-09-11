@@ -1,7 +1,7 @@
 apply plugin: 'java'
 
 dependencies {
-    compile "io.eventuate.client.java:eventuate-client-java-spring:$eventuateClientVersion"
+    compile "io.eventuate.local.java:eventuate-client-java-spring:$eventuateLocalVersion"
     compile "org.springframework.boot:spring-boot-starter-web:$springBootVersion"
     compile("org.springframework.boot:spring-boot-starter-data-jpa:$springBootVersion")
 

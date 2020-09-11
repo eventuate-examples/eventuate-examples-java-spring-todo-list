@@ -10,7 +10,7 @@ import net.chrisrichardson.eventstore.examples.todolist.todoservice.backend.doma
 import net.chrisrichardson.eventstore.examples.todolist.todoservice.backend.domain.TodoEventSubscriber;
 import net.chrisrichardson.eventstore.examples.todolist.todoservice.backend.domain.TodoService;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
-import org.springframework.boot.autoconfigure.web.HttpMessageConverters;
+import org.springframework.boot.autoconfigure.http.HttpMessageConverters;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;

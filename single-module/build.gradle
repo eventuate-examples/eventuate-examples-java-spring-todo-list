@@ -9,12 +9,8 @@ buildscript {
     }
 }
 
-task wrapper(type: Wrapper) {
-    gradleVersion = '3.5'
-}
-
 apply plugin: 'java'
-apply plugin: 'spring-boot'
+apply plugin: 'org.springframework.boot'
 
 apply plugin: VerifyEventStoreEnvironmentPlugin
 apply plugin: 'docker-compose'
@@ -29,7 +25,7 @@ repositories {
 }
 
 dependencies {
-    compile "io.eventuate.client.java:eventuate-client-java-spring:$eventuateClientVersion"
+    compile "io.eventuate.local.java:eventuate-client-java-spring:$eventuateLocalVersion"
     compile "io.eventuate.local.java:eventuate-local-java-spring-jdbc:$eventuateLocalVersion"
 
     compile 'mysql:mysql-connector-java:5.1.36'
@@ -37,20 +33,21 @@ dependencies {
         exclude group: 'org.slf4j', module: 'slf4j-simple'
     }
 
+    compile 'org.springframework.plugin:spring-plugin-core:2.0.0.RELEASE'
+
     compile "org.springframework.boot:spring-boot-starter-data-jpa:$springBootVersion"
     compile "org.springframework.boot:spring-boot-starter-web:$springBootVersion"
     compile "org.springframework.boot:spring-boot-starter-actuator:$springBootVersion"
-    compile "org.springframework.hateoas:spring-hateoas:$springHateoasVersion"
+    compile "org.springframework.boot:spring-boot-starter-hateoas:$springBootVersion"
 
     compile "io.reactivex:rxjava:1.1.5"
     compile "org.apache.httpcomponents:httpclient:4.5"
 
-    compile "io.springfox:springfox-swagger2:2.2.2"
-    compile 'io.springfox:springfox-swagger-ui:2.2.2'
+    compile "io.eventuate.util:eventuate-util-spring-swagger:$eventuateUtilVersion"
 
     testCompile "junit:junit:4.12"
     testCompile "org.springframework.boot:spring-boot-starter-test:$springBootVersion"
-    testCompile "io.eventuate.client.java:eventuate-client-java-spring-jdbc:$eventuateClientVersion"
+    testCompile "io.eventuate.local.java:eventuate-client-java-spring-jdbc:$eventuateLocalVersion"
 }
 
 test {
@@ -65,8 +62,8 @@ task e2eTest(type: Test) {
 
 dockerCompose {
     environment.put "EVENTUATE_COMMON_VERSION", eventuateCommonImageVersion
-    environment.put "EVENTUATE_KAFKA_VERSION", eventuateMessagingKafkaImageVersion
     environment.put "EVENTUATE_CDC_VERSION", eventuateCdcImageVersion
+    environment.put "EVENTUATE_JAVA_BASE_IMAGE_VERSION", eventuateExamplesBaseImageVersion
 
     mysqlbinlog {
         projectName = null
@@ -76,7 +73,7 @@ dockerCompose {
     mysqlbinlogcdc {
         projectName = null
         useComposeFiles = ["docker-compose-eventuate-local-mysql.yml"]
-        startedServices = ["cdcservice"]
+        startedServices = ["cdc-service"]
     }
 
     postgrespolling {
@@ -87,7 +84,7 @@ dockerCompose {
     postgrespollingcdc {
         projectName = null
         useComposeFiles = ["docker-compose-eventuate-local-postgres-polling.yml"]
-        startedServices = ["cdcservice"]
+        startedServices = ["cdc-service"]
     }
 
     postgreswal {
@@ -98,6 +95,6 @@ dockerCompose {
     postgreswalcdc {
         projectName = null
         useComposeFiles = ["docker-compose-eventuate-local-postgres-wal.yml"]
-        startedServices = ["cdcservice"]
+        startedServices = ["cdc-service"]
     }
 }

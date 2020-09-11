@@ -1,5 +1,5 @@
 apply plugin: VerifyEventStoreEnvironmentPlugin
-apply plugin: 'spring-boot'
+apply plugin: 'org.springframework.boot'
 
 dependencies {
     compile project(":common")
@@ -13,7 +13,7 @@ dependencies {
     compile("org.springframework.boot:spring-boot-starter-data-jpa:$springBootVersion")
     compile("org.springframework.boot:spring-boot-starter-web:$springBootVersion")
     compile "org.springframework.boot:spring-boot-starter-actuator:$springBootVersion"
-    compile("org.springframework.hateoas:spring-hateoas:$springHateoasVersion")
+    compile "org.springframework.boot:spring-boot-starter-hateoas:$springBootVersion"
 
     testCompile project(":test-utils")
 }
