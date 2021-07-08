@@ -1,3 +1,3 @@
-FROM java:openjdk-8u91-jdk
-CMD java ${JAVA_OPTS} -jar todo-service.jar
-COPY build/libs/todo-service.jar .
+ARG baseImageVersion
+FROM eventuateio/eventuate-examples-docker-images-spring-example-base-image:$baseImageVersion
+COPY build/libs/todo-service.jar service.jar

@@ -8,7 +8,7 @@ import net.chrisrichardson.eventstore.examples.todolist.model.TodoInfo;
 import net.chrisrichardson.eventstore.examples.todolist.todoservice.backend.TodoViewServiceImpl;
 import net.chrisrichardson.eventstore.examples.todolist.todoservice.backend.domain.TodoService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.hateoas.mvc.ControllerLinkBuilder;
+import org.springframework.hateoas.server.mvc.ControllerLinkBuilder;
 import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -20,7 +20,7 @@ import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
 
-import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 import static org.springframework.web.bind.annotation.RequestMethod.*;
 
 

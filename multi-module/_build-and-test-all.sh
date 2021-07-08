@@ -2,17 +2,6 @@
 
 set -e
 
-if [ -z "$DOCKER_HOST_IP" ] ; then
-  if [ -z "$DOCKER_HOST" ] ; then
-    export DOCKER_HOST_IP=`hostname`
-  else
-    echo using ${DOCKER_HOST?}
-    XX=${DOCKER_HOST%\:*}
-    export DOCKER_HOST_IP=${XX#tcp\:\/\/}
-  fi
-  echo set DOCKER_HOST_IP $DOCKER_HOST_IP
-fi
-
 if [ "$1" = "--use-existing" ] ; then
   shift;
 else
@@ -43,8 +32,6 @@ fi
 
 ./gradlew ${database}${mode}ComposeBuild
 ./gradlew ${database}${mode}ComposeUp
-
-./wait-for-services.sh $DOCKER_HOST_IP 8081 8082 $EXTRA_PORTS_TO_WAIT_FOR
 
 ./gradlew $BUILD_AND_TEST_ALL_EXTRA_GRADLE_ARGS --offline $* -P ignoreE2EFailures=false :e2etest:cleanTest :e2etest:test
 
