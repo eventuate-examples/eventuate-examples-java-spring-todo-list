@@ -1,0 +1,14 @@
+apply plugin: 'java'
+
+dependencies {
+    compile project(":common")
+
+    compile "io.eventuate.local.java:eventuate-client-java-spring"
+
+    compile("org.springframework.boot:spring-boot-starter-data-jpa")
+    compile("org.springframework.boot:spring-boot-starter-web")
+    compile "org.springframework.boot:spring-boot-starter-actuator"
+    compile("org.springframework.hateoas:spring-hateoas")
+
+    testCompile 'junit:junit:4.12'
+}

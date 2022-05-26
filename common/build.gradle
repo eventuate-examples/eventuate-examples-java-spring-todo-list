@@ -1,0 +1,12 @@
+apply plugin: 'java'
+
+dependencies {
+    compile "io.eventuate.local.java:eventuate-client-java-spring"
+    compile "org.springframework.boot:spring-boot-starter-web"
+    compile("org.springframework.boot:spring-boot-starter-data-jpa")
+
+    compile 'jakarta.xml.bind:jakarta.xml.bind-api:2.3.3'
+    compile 'com.sun.xml.bind:jaxb-impl:2.3.3'
+
+    testCompile 'junit:junit:4.12'
+}

@@ -1,9 +1,0 @@
-include 'common'
-include 'common-hateoas'
-include 'common-swagger'
-include 'todo-service'
-include 'todo-view-service'
-include 'test-utils'
-include 'e2etest'
-
-rootProject.name = 'eventuate-examples-java-spring-todo-list-multi-module'

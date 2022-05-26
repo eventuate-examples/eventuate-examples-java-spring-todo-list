@@ -1,0 +1,18 @@
+apply plugin: VerifyEventStoreEnvironmentPlugin
+apply plugin: 'org.springframework.boot'
+
+dependencies {
+    compile project(":common")
+    compile project(":common-hateoas")
+    compile "org.springdoc:springdoc-openapi-ui"
+
+    compile "io.eventuate.local.java:eventuate-local-java-spring-jdbc"
+
+
+    compile("org.springframework.boot:spring-boot-starter-data-jpa")
+    compile("org.springframework.boot:spring-boot-starter-web")
+    compile "org.springframework.boot:spring-boot-starter-actuator"
+    compile("org.springframework.hateoas:spring-hateoas")
+
+    testCompile project(":test-utils")
+}

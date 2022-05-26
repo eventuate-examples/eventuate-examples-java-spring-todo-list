@@ -1,6 +1,6 @@
 # Todo List example application
 
-The Todo List application is the hello world application for the [Eventuate&trade; Platform](http://eventuate.io).
+The Todo List application is the hello world application for the [Eventuate&trade; event sourcing](http://eventuate.io).
 It illustrates how you can use the platform to write an application with a [microservices architecture](http://microservices.io/patterns/microservices.html) that uses [Event Sourcing](http://microservices.io/patterns/data/event-sourcing.html) and [Command Query Responsibility Segregation (CQRS)](http://microservices.io/patterns/data/cqrs.html).
 The Todo List application lets users maintain a todo list.
 
@@ -39,27 +39,13 @@ MySQL is kept up to date by subscribing to events produced by the Todo service.
 
 Note: for simplicity, the Todo list application can be deployed as a monolithic application.
 
-# Two versions of the source code
-
-There are two versions of the source code:
-
-* `single-module` - a single module Gradle project for a monolithic version of the application.
-It is the easiest to get started with.
-* `multi-module` - a multi-module Gradle project for the microservices-based version of the application.
-
-Note: you do not need to install Gradle since it will be downloaded automatically.
-You just need to have Java 8 installed.
 
 # Building and running the application
-
-The steps for building both versions of the application are identical.
-
-## Building and running using Eventuate Local
 
 First, build the application
 
 ```
-./gradlew assemble -P eventuateDriver=local
+./gradlew assemble
 ```
 
 Next, launch the services using [Docker Compose](https://docs.docker.com/compose/):
@@ -85,19 +71,8 @@ See this [guide to setting `DOCKER_HOST_IP`](http://eventuate.io/docs/usingdocke
 
 Once the application has started, you can use the application via the Swagger UI.
 
-If you are running the `multi-module` version:
-
 * `http://${DOCKER_HOST_IP}:8081/swagger-ui.html` - the command-side service
 * `http://${DOCKER_HOST_IP}:8082/swagger-ui.html` - the query-side service
-
-If you are running the `single-module` version:
-
-* `http://${DOCKER_HOST_IP}:8080/swagger-ui.html` - the monolithic application
-
-# Using the Eventuate Local console
-
-You can also use the Eventuate Local console to view aggregates and watch the stream of events.
-Visit the URL `http://${DOCKER_HOST_IP}:8085`
 
 # Got questions?
 

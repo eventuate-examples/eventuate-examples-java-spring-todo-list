@@ -1,9 +1,0 @@
-DROP TABLE IF EXISTS todo CASCADE;
-
-CREATE TABLE todo (
-  id VARCHAR(255) PRIMARY KEY,
-  title VARCHAR(255),
-  completed BOOLEAN,
-  order_id INTEGER,
-  deleted BOOLEAN
-);

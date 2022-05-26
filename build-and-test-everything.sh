@@ -3,12 +3,9 @@
 set -e
 set -o pipefail
 
-SCRIPTS="single-module/build-and-test-all-eventuate-local-mysql.sh
-single-module/build-and-test-all-eventuate-local-postgres-polling.sh
-single-module/build-and-test-all-eventuate-local-postgres-wal.sh
-multi-module/build-and-test-all-eventuate-local-mysql.sh
-multi-module/build-and-test-all-eventuate-local-postgres-polling.sh
-multi-module/build-and-test-all-eventuate-local-postgres-wal.sh
+SCRIPTS="build-and-test-all-mysql.sh
+build-and-test-all-postgres-polling.sh
+build-and-test-all-postgres-wal.sh
 "
 
 date > build-and-test-everything.log
