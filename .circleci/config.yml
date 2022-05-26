@@ -16,6 +16,8 @@ jobs:
     steps:
       - checkout
 
+      - run: ./.circleci/install-java-11.sh
+      
       - restore_cache:
           keys:
           - eventuate-examples-java-spring-todo-list-{{ checksum "gradle.properties" }}-{{ checksum "gradle/wrapper/gradle-wrapper.properties" }}
