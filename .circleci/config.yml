@@ -20,6 +20,10 @@ orbs:
             description: maven command to run
             type: string
             default: ''
+          cache_prefix:
+            description: cache prefix name
+            type: string
+            default: 'eventuate-examples-java-spring-todo-list'
           restore_cache_prefix:
             description: set to random value to disable cache restoration
             type: string
@@ -38,8 +42,8 @@ orbs:
               ./.circleci/install-java-11.sh
           - restore_cache:
               keys:
-                - << parameters.restore_cache_prefix >>eventuate-tram-examples-customers-and-orders-j8-{{ checksum "gradle.properties" }}-{{ checksum "gradle/wrapper/gradle-wrapper.properties" }}
-                - << parameters.restore_cache_prefix >>eventuate-tram-examples-customers-and-orders-j8-
+                - << parameters.restore_cache_prefix >><< parameters.cache_prefix >>-{{ checksum "gradle.properties" }}-{{ checksum "gradle/wrapper/gradle-wrapper.properties" }}
+                - << parameters.restore_cache_prefix >><< parameters.cache_prefix >>-
           - run:
               command: |
                 . ./.circleci/setenv-circle-ci.sh
@@ -49,7 +53,7 @@ orbs:
               paths:
                 - ~/.gradle
                 - ~/.m2
-              key: eventuate-tram-examples-customers-and-orders-j8-{{ checksum "gradle.properties" }}-{{ checksum "gradle/wrapper/gradle-wrapper.properties" }}
+              key: << parameters.cache_prefix >>-{{ checksum "gradle.properties" }}-{{ checksum "gradle/wrapper/gradle-wrapper.properties" }}
           - run:
               command: |
                 . ./.circleci/setenv-circle-ci.sh
