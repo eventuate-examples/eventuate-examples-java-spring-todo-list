@@ -34,7 +34,7 @@ if [ ! -z "$EXTRA_INFRASTRUCTURE_SERVICES" ]; then
     ./gradlew ${EXTRA_INFRASTRUCTURE_SERVICES}ComposeBuild
     ./gradlew ${EXTRA_INFRASTRUCTURE_SERVICES}ComposeUp
     echo trying again - should do nothing
-    ./gradlew ${EXTRA_INFRASTRUCTURE_SERVICES}ComposeUp
+    ./gradlew -P dockerComposeNoCreate=true ${EXTRA_INFRASTRUCTURE_SERVICES}ComposeUp
 fi
 
 if [ -z "$SPRING_DATASOURCE_URL" ] ; then
