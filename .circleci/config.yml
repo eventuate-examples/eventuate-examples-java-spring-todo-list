@@ -18,18 +18,26 @@ jobs:
 
       - restore_cache:
           keys:
-          - eventuate-examples-java-spring-todo-list-{{ checksum "single-module/gradle.properties" }}-{{ checksum "single-module/gradle/wrapper/gradle-wrapper.properties" }}
+          - eventuate-examples-java-spring-todo-list-{{ checksum "gradle.properties" }}-{{ checksum "gradle/wrapper/gradle-wrapper.properties" }}
           - eventuate-examples-java-spring-todo-list-
 
-      - run: ./gradlew testClasses
+      - run: |
+          . .circleci/with-java-11.sh
+         ./gradlew testClasses
 
       - save_cache:
           paths:
             - ~/.m2
             - ~/.gradle
-          key: eventuate-examples-java-spring-todo-list-{{ checksum "single-module/gradle.properties" }}-{{ checksum "single-module/gradle/wrapper/gradle-wrapper.properties" }}
+          key: eventuate-examples-java-spring-todo-list-{{ checksum "gradle.properties" }}-{{ checksum "gradle/wrapper/gradle-wrapper.properties" }}
 
       # run tests!
-      - run: ./build-and-test-all-mysql.sh
-      - run: ./build-and-test-all-postgres-polling.sh
-      - run: ./build-and-test-all-postgres-wal.sh
+      - run: |
+          . .circleci/with-java-11.sh
+          ./build-and-test-all-mysql.sh
+      - run: |
+          . .circleci/with-java-11.sh
+          ./build-and-test-all-postgres-polling.sh
+      - run: |
+          . .circleci/with-java-11.sh
+          ./build-and-test-all-postgres-wal.sh
