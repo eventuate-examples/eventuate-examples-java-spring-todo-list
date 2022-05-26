@@ -23,7 +23,7 @@ jobs:
 
       - run: |
           . .circleci/with-java-11.sh
-         ./gradlew testClasses
+          ./gradlew testClasses
 
       - save_cache:
           paths:
