@@ -33,6 +33,8 @@ fi
 if [ ! -z "$EXTRA_INFRASTRUCTURE_SERVICES" ]; then
     ./gradlew ${EXTRA_INFRASTRUCTURE_SERVICES}ComposeBuild
     ./gradlew ${EXTRA_INFRASTRUCTURE_SERVICES}ComposeUp
+    echo trying again - should do nothing
+    ./gradlew ${EXTRA_INFRASTRUCTURE_SERVICES}ComposeUp
 fi
 
 if [ -z "$SPRING_DATASOURCE_URL" ] ; then
@@ -45,7 +47,7 @@ fi
 ./gradlew $BUILD_AND_TEST_ALL_EXTRA_GRADLE_ARGS --offline $* :e2etest:cleanTest :e2etest:testClasses
 
 ./gradlew ${database}${mode}ComposeBuild
-./gradlew ${database}${mode}ComposeUp
+./gradlew -P dockerComposeNoCreate=true ${database}${mode}ComposeUp
 
 ./wait-for-services.sh $DOCKER_HOST_IP 8081 8082 $EXTRA_PORTS_TO_WAIT_FOR
 
