@@ -20,7 +20,6 @@ public class TestUtil {
         return Eventually.eventuallyReturning(() -> {
                     ResponseEntity<T> re = func.get();
                     assertEquals(expectedStatusCode, re.getStatusCode());
-                    assertNotNull(re.getBody());
                     assertTrue(predicate.test(re.getBody()));
                     return re.getBody();
                 }

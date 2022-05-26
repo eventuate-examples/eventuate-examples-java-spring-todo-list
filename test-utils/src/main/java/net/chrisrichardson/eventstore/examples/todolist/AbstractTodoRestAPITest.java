@@ -125,7 +125,7 @@ public abstract class AbstractTodoRestAPITest {
 
         awaitSuccessfulRequest(
                 this::getTodos,
-                re -> re.length == 0
+                re -> re != null && re.length == 0
         );
 
     }
@@ -171,7 +171,7 @@ public abstract class AbstractTodoRestAPITest {
 
         TodoWithUrl updatedTodoInView = awaitSuccessfulRequest(
                 () -> getTodo(todoId),
-                re -> re.getTitle().equals(todoWithChanges.getTitle())
+                re -> re != null && re.getTitle().equals(todoWithChanges.getTitle())
         );
 
         assertTodoEquals(expectedTodo, updatedTodoInView);
