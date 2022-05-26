@@ -16,8 +16,10 @@ jobs:
     steps:
       - checkout
 
-      - run: ./.circleci/install-java-11.sh
-      
+      - run: |
+          ./.circleci/install-java-11.sh
+          docker-compose version
+
       - restore_cache:
           keys:
           - eventuate-examples-java-spring-todo-list-{{ checksum "gradle.properties" }}-{{ checksum "gradle/wrapper/gradle-wrapper.properties" }}
