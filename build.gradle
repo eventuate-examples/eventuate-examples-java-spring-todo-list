@@ -38,7 +38,7 @@ dockerCompose {
     environment.put "EVENTUATE_MESSAGING_KAFKA_IMAGE_VERSION", eventuateMessagingKafkaImageVersion
     environment.put "EVENTUATE_JAVA_BASE_IMAGE_VERSION", eventuateExamplesBaseImageVersion
     projectName = null
-    noRecreate = dockerComposeNoCreate
+    noRecreate = Boolean.valueOf(dockerComposeNoCreate)
 
     mysqlbinlog {
         projectName = null
