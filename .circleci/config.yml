@@ -5,20 +5,20 @@ parameters:
     type: string
     default: ''
 orbs:
-  eventuate-gradle-build-and-test: "eventuate_io/eventuate-gradle-build-and-test@dev:volatile"
+  eventuate-gradle-build-and-test: "eventuate_io/eventuate-gradle-build-and-test@0.1.0"
 workflows:
   version: 2.1
   build-test-and-deploy:
     jobs:
-      - eventuate-gradle-build-and-test:
+      - eventuate-gradle-build-and-test/build-and-test:
           name: mysql
           script: ./build-and-test-all-mysql.sh
           restore_cache_prefix: "<<pipeline.parameters.restore_cache_prefix>>"
-      - eventuate-gradle-build-and-test:
+      - eventuate-gradle-build-and-test/build-and-test:
           name: postgres-polling
           script: ./build-and-test-all-postgres-polling.sh
           restore_cache_prefix: "<<pipeline.parameters.restore_cache_prefix>>"
-      - eventuate-gradle-build-and-test:
+      - eventuate-gradle-build-and-test/build-and-test:
           name: postgres-wal
           script: ./build-and-test-all-postgres-wal.sh
           restore_cache_prefix: "<<pipeline.parameters.restore_cache_prefix>>"
