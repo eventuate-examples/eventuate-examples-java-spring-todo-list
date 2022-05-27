@@ -5,114 +5,20 @@ parameters:
     type: string
     default: ''
 orbs:
-  build-and-test:
-    jobs:
-      build-and-test:
-        parameters:
-          script:
-            description: the script to execute
-            type: string
-          resource_class:
-            description: the resource class
-            type: string
-            default: 'medium'
-          maven_cache_command:
-            description: maven command to run
-            type: string
-            default: ''
-          project_name:
-            description: name of project
-            type: string
-            default: 'eventuate-examples-java-spring-todo-list'
-          checksum_files:
-            description: files to checksum
-            type: string
-            default: 'gradle.properties gradle/wrapper/gradle-wrapper.properties'
-          restore_cache_prefix:
-            description: set to random value to disable cache restoration
-            type: string
-            default: ''
-        machine:
-          image: ubuntu-2004:202101-01
-          docker_layer_caching: true
-        resource_class: <<parameters.resource_class>>
-        working_directory: ~/<< parameters.project_name >>
-        environment:
-          # Customize the JVM maximum heap limit
-          JVM_OPTS: -Xmx256m
-          TERM: dumb
-        steps:
-          - checkout
-          - run: |
-              ./.circleci/install-java-11.sh
-          - run: cat << parameters.checksum_files >> > /tmp/files_to_checksum
-          - restore_cache:
-              keys:
-                - << parameters.restore_cache_prefix >><< parameters.project_name >>-{{ checksum "/tmp/files_to_checksum" }}
-                - << parameters.restore_cache_prefix >><< parameters.project_name >>-
-          - run:
-              command: |
-                . ./.circleci/setenv-circle-ci.sh
-                ./gradlew testClasses
-                <<parameters.maven_cache_command>>
-          - save_cache:
-              paths:
-                - ~/.gradle
-                - ~/.m2
-              key: << parameters.project_name >>--{{ checksum "/tmp/files_to_checksum" }}
-          - run:
-              command: |
-                . ./.circleci/setenv-circle-ci.sh
-                <<parameters.script>>
-          - run:
-              name: Save test results
-              command: |
-                set -e
-                mkdir -p ~/junit
-                find . -type f -regex ".*/build/test-results/.*xml" -exec cp {} ~/junit/ \;
-              when: always
-          - run:
-              name: Print container logs
-              command: |
-                set -e
-                CONTAINER_IDS=$(docker ps -a -q)
-
-                for id in $CONTAINER_IDS ; do
-                  echo "\n--------------------"
-                  echo "logs of:\n"
-                  docker ps -a -f "id=$id"
-                  echo "\n"
-                  docker logs $id
-                  echo "--------------------\n"
-                done
-
-                mkdir -p ~/container-logs
-
-                docker ps -a > ~/container-logs/containers.txt
-
-                for name in $(docker ps -a --format "{{.Names}}") ; do
-                  docker logs $name > ~/container-logs/${name}.log
-                done
-              when: always
-          - store_test_results:
-              path: ~/junit
-          - store_artifacts:
-              path: ~/junit
-          - store_artifacts:
-              path: ~/container-logs
+  eventuate-gradle-build-and-test: "eventuate_io/eventuate-gradle-build-and-test@dev:volatile"
 workflows:
   version: 2.1
   build-test-and-deploy:
     jobs:
-      - build-and-test/build-and-test:
+      - eventuate-gradle-build-and-test:
           name: mysql
           script: ./build-and-test-all-mysql.sh
           restore_cache_prefix: "<<pipeline.parameters.restore_cache_prefix>>"
-      - build-and-test/build-and-test:
+      - eventuate-gradle-build-and-test:
           name: postgres-polling
           script: ./build-and-test-all-postgres-polling.sh
           restore_cache_prefix: "<<pipeline.parameters.restore_cache_prefix>>"
-      - build-and-test/build-and-test:
+      - eventuate-gradle-build-and-test:
           name: postgres-wal
           script: ./build-and-test-all-postgres-wal.sh
           restore_cache_prefix: "<<pipeline.parameters.restore_cache_prefix>>"
