@@ -1,3 +1,9 @@
+# An Eventuate project
+
+<img class="img-responsive" src="https://eventuate.io/i/logo.gif">
+
+This project is part of [Eventuate](http://eventuate.io), which is a microservices collaboration platform.
+
 # Todo List example application
 
 The Todo List application is the hello world application for the [Eventuate&trade; event sourcing](http://eventuate.io).
