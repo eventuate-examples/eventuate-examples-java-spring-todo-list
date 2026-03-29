@@ -1,7 +1,6 @@
 package net.chrisrichardson.eventstore.examples.todolist;
 
-import org.apache.commons.lang.builder.EqualsBuilder;
-import org.apache.commons.lang.builder.HashCodeBuilder;
+import java.util.Objects;
 
 
 public class TodoWithUrl {
@@ -53,11 +52,18 @@ public class TodoWithUrl {
 
     @Override
     public boolean equals(Object o) {
-        return EqualsBuilder.reflectionEquals(this, o);
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        TodoWithUrl that = (TodoWithUrl) o;
+        return completed == that.completed &&
+                order == that.order &&
+                Objects.equals(id, that.id) &&
+                Objects.equals(title, that.title) &&
+                Objects.equals(url, that.url);
     }
 
     @Override
     public int hashCode() {
-        return HashCodeBuilder.reflectionHashCode(this);
+        return Objects.hash(id, title, completed, order, url);
     }
 }

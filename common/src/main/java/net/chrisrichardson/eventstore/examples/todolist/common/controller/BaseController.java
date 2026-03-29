@@ -3,7 +3,7 @@ package net.chrisrichardson.eventstore.examples.todolist.common.controller;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
 import java.util.concurrent.Callable;
 import java.util.function.Function;
 

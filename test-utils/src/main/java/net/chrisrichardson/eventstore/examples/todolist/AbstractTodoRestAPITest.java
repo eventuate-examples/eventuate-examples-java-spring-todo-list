@@ -2,15 +2,12 @@ package net.chrisrichardson.eventstore.examples.todolist;
 
 
 import net.chrisrichardson.eventstore.examples.todolist.model.TodoInfo;
-import org.junit.Assert;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.Arrays;
@@ -18,9 +15,9 @@ import java.util.List;
 
 import static net.chrisrichardson.eventstore.examples.todolist.testutil.TestUtil.awaitNotFoundResponse;
 import static net.chrisrichardson.eventstore.examples.todolist.testutil.TestUtil.awaitSuccessfulRequest;
+import static org.junit.jupiter.api.Assertions.*;
 
 
-@RunWith(SpringJUnit4ClassRunner.class)
 public abstract class AbstractTodoRestAPITest {
 
     protected int port;
@@ -44,7 +41,7 @@ public abstract class AbstractTodoRestAPITest {
 
     private ResponseEntity<TodoWithUrl> createTodo(TodoInfo todoToSave) {
         ResponseEntity<TodoWithUrl> postResponse = restTemplate.postForEntity(commandsideBaseUrl("todos"), todoToSave, TodoWithUrl.class);
-        Assert.assertEquals(HttpStatus.OK, postResponse.getStatusCode());
+        assertEquals(HttpStatus.OK, postResponse.getStatusCode());
         return postResponse;
     }
 
@@ -58,13 +55,13 @@ public abstract class AbstractTodoRestAPITest {
     }
 
     private void assertTodoEquals(TodoWithUrl expectedTodo, TodoWithUrl todo) {
-        Assert.assertEquals(expectedTodo.getTitle(), todo.getTitle());
-        Assert.assertEquals(expectedTodo.getOrder(), todo.getOrder());
-        Assert.assertEquals(expectedTodo.isCompleted(), todo.isCompleted());
+        assertEquals(expectedTodo.getTitle(), todo.getTitle());
+        assertEquals(expectedTodo.getOrder(), todo.getOrder());
+        assertEquals(expectedTodo.isCompleted(), todo.isCompleted());
     }
 
     private void assertTodoContains(TodoWithUrl expectedTodo, List<TodoWithUrl> todoList) {
-        Assert.assertTrue(todoList.contains(expectedTodo));
+        assertTrue(todoList.contains(expectedTodo));
     }
 
     private TodoWithUrl makeExpectedTodo(String todoId, TodoInfo todo) {
@@ -80,7 +77,7 @@ public abstract class AbstractTodoRestAPITest {
     private ResponseEntity<TodoWithUrl> updateTodo(String todoId, TodoInfo patch) {
         ResponseEntity<TodoWithUrl> patchResult = restTemplate.exchange(commandsideBaseUrl("todos/" + todoId), HttpMethod.PATCH, new HttpEntity<>(patch),
                 TodoWithUrl.class);
-        Assert.assertEquals(HttpStatus.OK, patchResult.getStatusCode());
+        assertEquals(HttpStatus.OK, patchResult.getStatusCode());
         return patchResult;
     }
 
@@ -96,15 +93,15 @@ public abstract class AbstractTodoRestAPITest {
     public void shouldSetCORSHeaders() {
         ResponseEntity<TodoWithUrl[]> responseEntity = getTodos();
 
-        Assert.assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
-        Assert.assertFalse(responseEntity.getHeaders().get("Access-Control-Allow-Origin").isEmpty());
-        Assert.assertEquals("*", responseEntity.getHeaders().get("Access-Control-Allow-Origin").get(0));
-        Assert.assertFalse(responseEntity.getHeaders().get("Access-Control-Allow-Methods").isEmpty());
-        Assert.assertEquals("POST, GET, OPTIONS, DELETE, PATCH", responseEntity.getHeaders().get("Access-Control-Allow-Methods").get(0));
-        Assert.assertFalse(responseEntity.getHeaders().get("Access-Control-Max-Age").isEmpty());
-        Assert.assertEquals("3600", responseEntity.getHeaders().get("Access-Control-Max-Age").get(0));
-        Assert.assertFalse(responseEntity.getHeaders().get("Access-Control-Allow-Headers").isEmpty());
-        Assert.assertEquals("x-requested-with, origin, content-type, accept", responseEntity.getHeaders().get("Access-Control-Allow-Headers").get(0));
+        assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
+        assertFalse(responseEntity.getHeaders().get("Access-Control-Allow-Origin").isEmpty());
+        assertEquals("*", responseEntity.getHeaders().get("Access-Control-Allow-Origin").get(0));
+        assertFalse(responseEntity.getHeaders().get("Access-Control-Allow-Methods").isEmpty());
+        assertEquals("POST, GET, OPTIONS, DELETE, PATCH", responseEntity.getHeaders().get("Access-Control-Allow-Methods").get(0));
+        assertFalse(responseEntity.getHeaders().get("Access-Control-Max-Age").isEmpty());
+        assertEquals("3600", responseEntity.getHeaders().get("Access-Control-Max-Age").get(0));
+        assertFalse(responseEntity.getHeaders().get("Access-Control-Allow-Headers").isEmpty());
+        assertEquals("x-requested-with, origin, content-type, accept", responseEntity.getHeaders().get("Access-Control-Allow-Headers").get(0));
     }
 
     @Test
@@ -187,4 +184,3 @@ public abstract class AbstractTodoRestAPITest {
 
     protected abstract String getQuerysideHost();
 }
-

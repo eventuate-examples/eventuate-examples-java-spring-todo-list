@@ -1,11 +1,9 @@
-apply plugin: 'java'
-
 dependencies {
-    compile project(":common")
-    compile "io.eventuate.local.java:eventuate-client-java-spring"
+    implementation project(":common")
 
-    compile("org.springframework.boot:spring-boot-starter-web")
-    compile "junit:junit:4.12"
-    compile "io.eventuate.util:eventuate-util-test:$eventuateUtilVersion"
-    compile "org.springframework.boot:spring-boot-starter-test"
+    implementation "io.eventuate.local.java:eventuate-client-java-spring"
+    implementation "org.springframework.boot:spring-boot-starter-web"
+    implementation "org.junit.jupiter:junit-jupiter:$junitVersion"
+    implementation "io.eventuate.util:eventuate-util-test:$eventuateUtilVersion"
+    implementation "org.springframework.boot:spring-boot-starter-test"
 }

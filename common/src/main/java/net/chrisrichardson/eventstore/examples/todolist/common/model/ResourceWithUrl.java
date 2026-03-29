@@ -2,10 +2,6 @@ package net.chrisrichardson.eventstore.examples.todolist.common.model;
 
 import com.fasterxml.jackson.annotation.JsonUnwrapped;
 
-import javax.xml.bind.annotation.XmlAnyElement;
-import javax.xml.bind.annotation.XmlRootElement;
-
-@XmlRootElement
 public class ResourceWithUrl<T> {
     private String id;
     @JsonUnwrapped
@@ -28,7 +24,6 @@ public class ResourceWithUrl<T> {
         this.id = id;
     }
 
-    @XmlAnyElement
     public T getContent() {
         return content;
     }

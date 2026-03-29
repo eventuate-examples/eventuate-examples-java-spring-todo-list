@@ -7,7 +7,7 @@ import org.springframework.http.ResponseEntity;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 
 public class TestUtil {

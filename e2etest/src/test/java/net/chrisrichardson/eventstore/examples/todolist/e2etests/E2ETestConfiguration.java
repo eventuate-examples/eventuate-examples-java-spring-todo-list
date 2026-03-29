@@ -1,8 +1,7 @@
 package net.chrisrichardson.eventstore.examples.todolist.e2etests;
 
 import net.chrisrichardson.eventstore.examples.todolist.testutil.BasicWebTestConfiguration;
-import net.chrisrichardson.eventstore.examples.todolist.testutil.RestTemplateErrorHandler;
-import org.apache.http.impl.client.HttpClientBuilder;
+import org.apache.hc.client5.http.impl.classic.HttpClientBuilder;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfiguration;

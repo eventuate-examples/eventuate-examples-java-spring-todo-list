@@ -1,6 +1,8 @@
+**/.hitl
 .gradle
 build/
 *.idea/
 *.iml
 *.log
 out/
+bin

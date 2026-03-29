@@ -1,7 +1,6 @@
 buildscript {
     repositories {
         mavenCentral()
-        jcenter()
     }
     dependencies {
         classpath("org.springframework.boot:spring-boot-gradle-plugin:$springBootVersion")
@@ -13,22 +12,39 @@ apply plugin: 'docker-compose'
 
 subprojects {
     apply plugin: 'java'
-    sourceCompatibility = 1.8
-    targetCompatibility = 1.8
+    apply plugin: 'org.springframework.boot'
+    apply plugin: 'io.spring.dependency-management'
+
+    java {
+        toolchain {
+            languageVersion = JavaLanguageVersion.of(17)
+        }
+    }
 
     repositories {
         mavenCentral()
         eventuateMavenRepoUrl.split(',').each { repoUrl -> maven { url repoUrl } }
     }
 
-    dependencies {
-      implementation(platform("io.eventuate.platform:eventuate-platform-dependencies:$eventuatePlatformVersion"))
-      implementation(platform("org.springframework.boot:spring-boot-dependencies:$springBootVersion"))
-      constraints {
-          implementation "org.springdoc:springdoc-openapi-ui:$springDocOpenApiUiVersion"
-      }
+    ext['junit-jupiter.version'] = junitVersion
+
+    dependencyManagement {
+        imports {
+            mavenBom "io.eventuate.platform:eventuate-platform-dependencies:$eventuatePlatformVersion"
+        }
     }
 
+    dependencies {
+        testImplementation "org.junit.jupiter:junit-jupiter"
+        testRuntimeOnly "org.junit.platform:junit-platform-launcher"
+    }
+
+    test {
+        useJUnitPlatform()
+    }
+
+    bootJar.enabled = false
+    jar.enabled = true
 }
 
 dockerCompose {

@@ -1,13 +1,11 @@
 package net.chrisrichardson.eventstore.examples.todolist.testutil;
 
-import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
 
 
 public class RestUtil {
 
-    public static boolean isError(HttpStatus status) {
-        HttpStatus.Series series = status.series();
-        return (HttpStatus.Series.CLIENT_ERROR.equals(series)
-                || HttpStatus.Series.SERVER_ERROR.equals(series));
+    public static boolean isError(HttpStatusCode status) {
+        return status.is4xxClientError() || status.is5xxServerError();
     }
 }
