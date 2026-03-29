@@ -13,12 +13,18 @@ workflows:
       - eventuate-gradle-build-and-test/build-and-test:
           name: mysql
           script: ./build-and-test-all-mysql.sh
+          machine_image: ubuntu-2204:2024.01.1
+          java_version_to_install: '17'
           restore_cache_prefix: "<<pipeline.parameters.restore_cache_prefix>>"
       - eventuate-gradle-build-and-test/build-and-test:
           name: postgres-polling
           script: ./build-and-test-all-postgres-polling.sh
+          machine_image: ubuntu-2204:2024.01.1
+          java_version_to_install: '17'
           restore_cache_prefix: "<<pipeline.parameters.restore_cache_prefix>>"
       - eventuate-gradle-build-and-test/build-and-test:
           name: postgres-wal
           script: ./build-and-test-all-postgres-wal.sh
+          machine_image: ubuntu-2204:2024.01.1
+          java_version_to_install: '17'
           restore_cache_prefix: "<<pipeline.parameters.restore_cache_prefix>>"
