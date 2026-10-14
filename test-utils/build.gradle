@@ -2,7 +2,7 @@ dependencies {
     implementation project(":common")
 
     implementation "io.eventuate.local.java:eventuate-client-java-spring"
-    implementation "org.springframework.boot:spring-boot-starter-web"
+    implementation "org.springframework.boot:spring-boot-starter-webmvc"
     implementation "org.junit.jupiter:junit-jupiter:$junitVersion"
     implementation "io.eventuate.util:eventuate-util-test:$eventuateUtilVersion"
     implementation "org.springframework.boot:spring-boot-starter-test"

@@ -1,8 +1,10 @@
 package net.chrisrichardson.eventstore.examples.todolist.common.model;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonUnwrapped;
 
 public class ResourceWithUrl<T> {
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private String id;
     @JsonUnwrapped
     private T content;

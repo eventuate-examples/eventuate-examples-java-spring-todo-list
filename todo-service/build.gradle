@@ -10,7 +10,7 @@ dependencies {
     implementation "io.eventuate.local.java:eventuate-local-java-spring-jdbc"
 
     implementation "org.springframework.boot:spring-boot-starter-data-jpa"
-    implementation "org.springframework.boot:spring-boot-starter-web"
+    implementation "org.springframework.boot:spring-boot-starter-webmvc"
     implementation "org.springframework.boot:spring-boot-starter-actuator"
     implementation "org.springframework.hateoas:spring-hateoas"
 
