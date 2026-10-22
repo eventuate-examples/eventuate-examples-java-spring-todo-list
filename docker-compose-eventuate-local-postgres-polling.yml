@@ -1,7 +1,7 @@
 version: '3'
 services:
   zookeeper:
-    image: eventuateio/eventuate-zookeeper:$EVENTUATE_COMMON_VERSION
+    image: eventuateio/eventuate-zookeeper:${EVENTUATE_COMMON_ZOOKEEPER_VERSION}
     ports:
       - 2181:2181
 
@@ -26,7 +26,7 @@ services:
     build:
       context: ./postgres
       args:
-        EVENTUATE_COMMON_VERSION: "$EVENTUATE_COMMON_VERSION"
+        EVENTUATE_COMMON_DATABASE_VERSION: "$EVENTUATE_COMMON_DATABASE_VERSION"
     ports:
       - 5432:5432
     environment:
